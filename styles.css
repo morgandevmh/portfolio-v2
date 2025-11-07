@@ -74,6 +74,7 @@
     align-items: center;
     flex-direction: row;
     z-index: 2;
+
   }
   
   .nav-links {
@@ -342,3 +343,177 @@ p {
 }
 
 
+/* RESPONSIVE */
+
+
+/* 1024px */
+@media screen and (max-width: 1124px) {
+
+    /* Général */
+    h1 {
+      font-size: 1.8rem;
+    }
+  
+    .title {
+      font-size: 6rem;
+    }
+  
+    h2 {
+      font-size: 2rem;
+    }
+  
+    p {
+      font-size: 1rem;
+    }
+  
+    /* Header */
+    header {
+      height: 150vh;
+    }
+  
+    header img {
+      height: 150vh;
+    }
+  
+    .c-text {
+      width: 70%;
+      margin: 100px auto 180px auto;
+      font-size: 1rem;
+    }
+  
+
+  
+    .nav-links .navlink a {
+      font-size: 1.2rem;
+    }
+  
+    /* Section home */
+    .s-home {
+      margin-top: 300px;
+    }
+  
+    /* Section contact */
+    .contact-container {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+  
+    .box-contact {
+      width: 80%;
+      height: 180px;
+      transform: scale(1);
+      transition: transform 0.2s ease-in-out;
+    }
+  
+    .contact-1, .contact-2, .contact-3, .contact-4 {
+      transform-origin: center;
+    }
+  
+    .contact-1:hover,
+    .contact-2:hover,
+    .contact-3:hover,
+    .contact-4:hover {
+      transform: scale(1.05);
+    }
+  }
+  
+  
+  /* 768p */
+  @media screen and (max-width: 768px) {
+  
+    /* Général */
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    .title {
+      font-size: 3.5rem;
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+  
+    p {
+      font-size: 0.9rem;
+    }
+  
+    /* Header */
+    header {
+      height: 120vh;
+    }
+  
+    header img {
+      height: 120vh;
+    }
+  
+
+  
+  
+    .nav-links .navlink a {
+      font-size: 1.1rem;
+    }
+  
+    /* Texte du header */
+    .c-text {
+      width: 85%;
+      height: auto;
+      margin: 100px auto;
+      padding: 20px;
+      backdrop-filter: blur(2px);
+    }
+  
+    .c-text p {
+      padding: 5%;
+    }
+  
+    /* Section home */
+    .s-home {
+      margin-top: 200px;
+    }
+  
+    /* Projects */
+    .s-projects {
+      height: auto;
+      padding-bottom: 6rem;
+    }
+  
+    /* Section contact */
+    .contact-container {
+      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 15px;
+      padding: 0 10px;
+    }
+  
+    .box-contact {
+      width: 90%;
+      height: 160px;
+      transform: scale(1);
+    }
+  
+    .contact-1:hover,
+    .contact-2:hover,
+    .contact-3:hover,
+    .contact-4:hover {
+      transform: scale(1.05);
+    }
+  
+    .s-contact h2 {
+      margin-top: 2rem;
+      font-size: 1.6rem;
+    }
+  
+    /* Footer */
+    footer {
+      height: 80px;
+    }
+  
+    footer p {
+      font-size: 0.7rem;
+    }
+  }
+  
