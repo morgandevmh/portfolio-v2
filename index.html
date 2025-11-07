@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+
+        <img src="img/img-background-3.jpg" alt="">
+
+        <nav id="navbar" class="navbar">
+            <p></p>
+            <ul class="nav-links">
+                <li class="navlink nl-1"><a href="#s-home">Home</a></li>
+                <li class="navlink nl-3"><a href="#s-projects">Projects</a></li>
+                <li class="navlink nl-4"><a href="#s-contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <section id="s-home" class="s-home">
+            <h1> HASSOUNA Morgan</h1>
+            <h1 class="title"> PORTFOLIO </h1>
+        </section>
+
+        <div class="z-text">        
+            <div class="c-text">
+                <p>Ce portfolio présente mon parcours en développement web à travers différents projets, terminés ou en cours. J’y partage mes réalisations, mes expérimentations techniques et les compétences que je développe au fil de mon apprentissage. C’est un espace d’évolution, pensé pour montrer ma manière de concevoir, d’organiser et de faire progresser chaque projet.</p>
+
+            </div>
+        </div>
+    </header>
+
+
+
+ 
+    <section id="s-projects" class="s-projects">
+        <h2>PROJECTS</h2>
+        <div class="slider">
+            <div class="carousel" style="--quantity: 5">
+                <div class="item" style="--position: 1">
+                    <img src="img/white-3drender-1jpg.jpg" alt="">
+                    <a href=""><h3>Project 5</h3></a>
+                </div>
+                <div class="item" style="--position: 2">
+                    <img src="img/white-3drender-2.jpg" alt="">
+                    <a href=""><h3>Project 4</h3></a>
+                </div>
+                <div  class="item" style="--position: 3">
+                    <img src="img/white-3drender-3.jpg" alt="">
+                    <a href=""><h3>Project 3</h3></a>
+                </div>
+                <div class="item" style="--position: 4">
+                    <img src="img/white-3drender-4.jpg" alt="">
+                    <a href=""><h3>Project 2</h3></a>
+                </div>
+                <div class="item" style="--position: 5">
+                    <img src="img/white-3drender-5.jpg" alt="">
+                    <a href=""><h3>Project 1</h3></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s-contact" class="s-contact">
+        <h2>CONTACT</h2>
+
+        <div class="contact-container">
+            <div class="contact-1 box-contact">
+                <a href="">
+                    <img src="icon/logo-contact/svg-github-icon .svg" alt=""> 
+                    <h3>GitHub</h3>
+                </a>
+            </div>
+
+            <div class="contact-2 box-contact">
+                <a href="">
+                    <img src="icon/logo-contact/svg-linkedin-icon.svg" alt=""> 
+                    <h3>Linkedin</h3>
+                </a>
+            </div> 
+
+            <div class="contact-3 box-contact">
+
+                <a href="">
+                    <img src="icon/logo-contact/svg-mail-icon.svg" alt=""> 
+                    <h3>Mail</h3>
+                </a>
+            </div>
+
+            <div class="contact-4 box-contact">
+                <a href="">
+                    <img src="icon/cv.png" alt=""> 
+                    <h3>CV</h3>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <p>This is the first version of my portfolio, which is bound to evolve over time as my skills develop. </p>
+    </footer>
+
+
+
+
+    <script>
+function updateCarouselRotation() {
+    const carousel = document.querySelector('.carousel');
+    const rotation = window.scrollY * 1.3;
+    carousel.style.transform = `rotateY(${rotation}deg)`;
+}
+
+window.addEventListener('scroll', updateCarouselRotation);
+     </script>
+
+</body>
+</html>
+
