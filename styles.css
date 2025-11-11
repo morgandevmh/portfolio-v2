@@ -9,7 +9,7 @@
     --gradient: ;
   
     --shadow-1: 0 8px 20px rgba(0, 0, 0, 0.4);
-    --shadow-2: ;
+    --shadow-2: 0 8px 20px rgba(29, 95, 227, 0.4);
   }
 
   * {
@@ -18,6 +18,22 @@
     margin: 0;
   }
   
+.top-arrow {
+  position: fixed;
+  height: 40px;
+  width: 40px;
+  left: 95%;
+  top: 92%;
+  z-index: 10;
+  transition: transform 0.5s ease;
+  cursor: pointer;
+  color: var(--secondary-color-1);
+}
+
+.top-arrow:hover {
+  transform: scale(1.5);
+}
+
   /* header*/
   
   header {
@@ -131,8 +147,8 @@
   .z-text {
     height: auto;
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
   }
   
   .c-text {
@@ -155,14 +171,97 @@
     padding: 10%;
     font-size: 1.2rem;
   }
+
+/* exp -> projets */
+
+.s-projects {
+  height: auto;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--main-color-2);
+}
+
+h3 {
+  font-family: var(--title-font);
+  font-size: 1.5rem;
+  font-weight: 100;
+}
+
+
+
+
+.content-area {
+  height: 380px;
+  width: 100%;  /*
+  border: solid 3px #12769e; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.ca1, .ca3 {
+  flex-direction: row-reverse;
+}
+
+.img-proj {
+  height: 300px;
+  width: 600px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: var(--shadow-1);
+  transition: all 0.3s ease-in-out;
+}
+.img-proj:hover {
+  box-shadow: var(--shadow-2);
+  transform: scale(1.05)
+}
+
+.zone-text-1 {
+  height: 300px;
+  width: 500px; /*
+  border: solid 3px #043775; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+.zt1l {
+  position: relative;
+  left: 8%;
+}
+
+.zt1r {
+  position: relative;
+  right: 8%;
+  align-items: end;
+}
+
+.zone-text-1 p {
+  background-image: linear-gradient(  rgba(231, 230, 230, 0.3));
+  backdrop-filter: blur(3px);
+  padding: 20px;
+  border-radius: 15px;
+  min-height: 130px;
+  font-family: var(--text-font);
+  font-size: 0.9rem;
+  text-align: 
+}
+
+
+
   
 
 
 
-/* Project */
+/* certifs */
 
 
-.s-projects {
+.s-certifs {
     width: 100%;
     height: 120vh;
     text-align: center;
@@ -181,7 +280,7 @@ h2 {
 
 }
 
-.s-projects .slider {
+.s-certifs .slider {
     position: absolute;
     width: 200px;
     height: 250px;
@@ -190,7 +289,7 @@ h2 {
     perspective: 1000px;
 }
 
-.s-projects .slider .carousel {
+.s-certifs .slider .carousel {
     position: relative;
     width: 100%;
     height: 100%;
@@ -198,7 +297,7 @@ h2 {
     transition: transform 0.1s ease-out;
 }
 
-.s-projects .slider .carousel .item {
+.s-certifs .slider .carousel .item {
     position: absolute;
     inset: 0;
     transform: 
@@ -206,25 +305,30 @@ h2 {
         translateZ(300px);
 }
 
-.s-projects .slider .carousel .item a {
+.s-certifs .slider .carousel .item a {
     text-decoration: none;
     color: black;
     font-family: var(--text-font);
 
 }
-.s-projects .slider .carousel .item a:hover {
+.s-certifs .slider .carousel .item a:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
     color:var(--secondary-color-1);
 } 
 
 
-.s-projects .slider .carousel .item img {
+.s-certifs .slider .carousel .item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 8px;
 
+}
+
+h4 {
+  font-size: 1.2rem;
+  font-family: var(--text-font);
 }
 
 
@@ -240,6 +344,10 @@ h2 {
 
 .s-contact h2 {
     padding: 0;
+}
+
+.s-contact h3 {
+  font-size: 1.1rem;
 }
 
 
@@ -391,6 +499,23 @@ p {
     .s-home {
       margin-top: 300px;
     }
+
+    /* section projetcs*/
+    .img-proj {
+      height: 250px;
+      width: 500px;
+    }
+
+    .zone-text-1 p {
+      max-height: 230px;
+      font-size: 0.8rem;
+      overflow: hidden;
+    }
+
+    .s-projects h3 {
+      font-size: 1rem;
+    }
+
   
     /* Section contact */
     .contact-container {
@@ -417,7 +542,30 @@ p {
       transform: scale(1.05);
     }
   }
-  
+  @media screen and (max-width: 890px) {
+        /* section projetcs*/
+        .zt1l {
+          position: relative;
+          left: 0%;
+        }
+        
+        .zt1r {
+          position: relative;
+          right: 0%;
+          align-items: end;
+        }
+
+        .img-proj {
+          height: 220px;
+          width: 460px;
+        }
+
+
+
+
+    
+      
+  }
   
   /* 768p */
   @media screen and (max-width: 768px) {
@@ -479,6 +627,11 @@ p {
     .s-projects {
       height: auto;
       padding-bottom: 6rem;
+    }
+
+    .img-proj {
+      height: 200px;
+      width: 390px;
     }
   
     /* Section contact */
