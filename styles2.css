@@ -32,6 +32,8 @@
   margin: 0;
 }
 
+
+
 body {
     background-color: var(--bg-color-1);
     color: var(--text-color-1);
@@ -56,6 +58,7 @@ header {
     justify-content: center;
     align-items: center;
     position: fixed;
+    z-index: 100;
 }
 
 .navbar ul {
@@ -110,7 +113,7 @@ header {
 
 /* section about me */
 #s-about {
-    height: 100vh ;
+    height: 80vh ;
     width: 100vw;
     max-height: 100vh;
     max-width: 100vw;
@@ -150,6 +153,91 @@ margin: 80px 0;
 }
 
 
+/* section projets */
+
+#s-projects {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#s-projects h2 {
+    font-size: var(--font-size-h2);
+    font-family: var(--title-font);
+    margin: 350px 0;
+} /* pour l'instant margin pour aligner le h2 en haut mais cherhcer une nouvelle solution pour que quand on clique sur projects dans la navbar ce soit mieux aligné*/
+
+.scroll-section-projects {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    padding: 50px;
+    gap: 40px;
+}
+
+/* Colonne de gauche - défilante */
+.project-left {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10vh;
+}
+
+.project-card {
+    height: 90vh;
+    background-color: var(--bg-color-T);
+    border: var(--border-color-1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Colonne de droite - fixe */
+.project-right {
+    flex: 0 0 40%;
+    position: relative;
+}
+
+.project-card-fixed {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80vh;
+    background-color: var(--bg-color-T);
+    border: var(--border-color-1);
+    border-radius: 8px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-card-fixed h3 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: var(--text-color-1);
+}
+
+.project-card-fixed p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color-1);
+}
+
+.project-card-content {
+    transition: opacity 0.3s ease;
+}
+
+.project-card-content.fade {
+    opacity: 0.3;
+}
+
+
 /* section skills */
 #s-skills {
     height: 100vh ;
@@ -159,6 +247,7 @@ margin: 80px 0;
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: 100px;
 }
 
 #s-skills h2 {
@@ -179,11 +268,30 @@ margin: 80px 0;
 #s-skills div .skills-card {
     height:40px;
     width: auto; 
-    background-color: violet;
+    background-color: var(--bg-color-T);
     border: var(--border-color-1);
     border-radius: 15px;
-    padding: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    transition: all 0.4s ease-in-out;
 }
+
+#s-skills div  .card-L:hover {
+    transform: rotate(25deg);
+}
+
+#s-skills div  .card-R:hover {
+    transform: rotate(-25deg);
+}
+
+
+
+#s-skills div .in-progress{
+    background-color: rgba(255, 255, 255, 0.563);
+}
+/* style de in progress a définir*/
 
 
 #s-skills div .skills-card img {
@@ -192,14 +300,92 @@ margin: 80px 0;
 }
 
 
+/* section certifs */
 
 
+.s-certifs {
+    width: 100%;
+    height: 120vh;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--main-color-2);
+
+}
+
+h2 {
+    padding-top: 2rem;
+    font-size: 2.5rem;
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+    font-family: var(--title-font);
+
+}
+
+.s-certifs .slider {
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 40%;
+    left: calc(50% - 100px);
+    perspective: 1000px;
+}
+
+.s-certifs .slider .carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+}
+
+.s-certifs .slider .carousel .item {
+    position: absolute;
+    inset: 0;
+    transform: 
+        rotateY(calc(var(--position) * (360deg / var(--quantity))))
+        translateZ(300px);
+}
+
+.s-certifs .slider .carousel .item a {
+    text-decoration: none;
+    color: black;
+    font-family: var(--text-font);
+
+}
+.s-certifs .slider .carousel .item a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color:var(--secondary-color-1);
+} 
 
 
+.s-certifs .slider .carousel .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
 
+}
 
+h4 {
+  font-size: 1.2rem;
+  font-family: var(--text-font);
+}
 
+/* footer */
+footer{
+    height: 100px;
+    width: 100%;
+    background-color: var(--bg-color-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-
-
+p {
+    font-size: 0.8rem;
+    font-family: var(--text-font);
+    color: var(--text-color-1);
+}
 

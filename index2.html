@@ -18,8 +18,8 @@
             <ul class="nav-links">
                 <li class="navlink nl-1"><a href="#s-home">Home</a></li>
                 <li class="navlink nl-4"><a href="#s-about">About Me</a></li>
-                <li class="navlink nl-3"><a href="#s-skills">Skills</a></li>
                 <li class="navlink nl-3"><a href="#s-projects">Projects</a></li>
+                <li class="navlink nl-3"><a href="#s-skills">Skills</a></li>
                 <li class="navlink nl-3"><a href="#s-certifs">Certifications</a></li>
             </ul>
         </nav>
@@ -42,34 +42,43 @@
         </div>
     </section>
 
+    <section id="s-projects">
+        <h2>Projects</h2>
+    
+        <div class="scroll-section-projects">
+            <!-- Colonne gauche avec 4 cards -->
+            <div class="project-left">
+                <div class="project-card" data-index="0">Project 1</div>
+                <div class="project-card" data-index="1">Project 2</div>
+                <div class="project-card" data-index="2">Project 3</div>
+                <div class="project-card" data-index="3">Project 4</div>
+            </div>
+    
+            <!-- Colonne droite avec card fixe et texte dynamique -->
+            <div class="project-right">
+                <div class="project-card-fixed">
+                    <div class="project-card-content">
+                        <h3 id="project-title">Tribute Page</h3>
+                        <p id="project-description">Une page hommage qui n'en n'est pas vraiment une. Cette page presente la salle de sport, son histoire, son concept, sa galerie photo et sa localisation. L’objectif était de travailler la mise en page, la hiérarchie visuelle et l’adaptation responsive du contenu (projet réaliser dans le cadre d'une certifications FreeCodeCamp).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="s-skills">
         <h2>Skills</h2>
         <!-- liste ?? -->
         <div>
-            <div class="skills-card"><img src="icon/logo-contact/svg-github-icon .svg" alt="">Nom de language</div>
-            <div class="skills-card"><img src="" alt="">skill</div>
-            <div class="skills-card"><img src="" alt="">Nom de language</div>
-            <div class="skills-card"><img src="" alt="">react </div>
-            <div class="skills-card"><img src="" alt="">Nom de language</div>
-            <div class="skills-card"><img src="" alt="">Nom de language js html blabla</div>
-
-        </div>
-    </section>
-
-    <section id="s-projects">
-        <h2>Projects</h2>
-
-        <div class="project-left">
-            <div class="project-card"></div>
-            <div class="project-card"></div>
-            <div class="project-card"></div>
-            <div class="project-card"></div>
-        </div>
-
-        <div class="project-right">
-            <div>
-                <p></p>
-            </div>
+            <div class="skills-card card-R"><img src="icon/skills-icon /html-5-svgrepo-com.svg" alt="logo html 5">HTML5</div>
+            <div class="skills-card card-L"><img src="icon/skills-icon /css-svgrepo-com.svg" alt="logo css3">CSS3</div>
+            <div class="skills-card card-R"><img src="icon/skills-icon /javascript-svgrepo-com.svg" alt="logo javascript">JavaScript</div>
+            <div class="skills-card card-L"><img src="icon/skills-icon /react-svgrepo-com.svg" alt="logo react">REACT </div>
+            <div class="skills-card card-R in-progress"><img src="icon/skills-icon /node-js-svgrepo-com.svg" alt="logo node js ">Node JS</div>
+            <div class="skills-card card-L in-progress"><img src="icon/skills-icon /redux-svgrepo-com.svg" alt="logo redux">Redux</div>
+            <div class="skills-card card-R in-progress"><img src="icon/skills-icon /mongodb-svgrepo-com.svg" alt="logo mongodb">MongoDB</div>
+            <div class="skills-card card-L"><img src="icon/skills-icon /git-svgrepo-com.svg" alt="logo git ">Git</div>
+            <div class="skills-card card-R"><img src="icon/skills-icon /svg-github-icon .svg" alt="">GitHub</div>
         </div>
     </section>
 
@@ -107,5 +116,80 @@
 
     
 
+    <script>
+        const projectContents = [
+            {
+                title: "Tribute Page",
+                description: "Une page hommage qui n'en n'est pas vraiment une. Cette page presente la salle de sport, son histoire, son concept, sa galerie photo et sa localisation. L’objectif était de travailler la mise en page, la hiérarchie visuelle et l’adaptation responsive du contenu (projet réaliser dans le cadre d'une certifications FreeCodeCamp)."
+            },
+            {
+                title: "Titre Projet 2",
+                description: "Voici la description du deuxième projet"
+            },
+            {
+                title: "Titre Projet 3",
+                description: "Troisième projet "
+            },
+            {
+                title: "Titre Projet 4",
+                description: "Dernier projet ."
+            }
+        ];
+    
+        // DOM
+        const projectCards = document.querySelectorAll('.project-card');
+        const projectTitle = document.getElementById('project-title');
+        const projectDescription = document.getElementById('project-description');
+        const projectContent = document.querySelector('.project-card-content');
+    
+        let currentProjectIndex = 0;
+    
+        // Fonction maj card de droite 
+        function updateProjectCard(index) {
+            if (index === currentProjectIndex) return;
+            
+            // Effet de fade
+            projectContent.classList.add('fade');
+            
+            setTimeout(() => {
+                projectTitle.textContent = projectContents[index].title;
+                projectDescription.textContent = projectContents[index].description;
+                projectContent.classList.remove('fade');
+                currentProjectIndex = index;
+            }, 150);
+        }
+    
+        // Détection de la card visible pendant le scroll
+        function checkVisibleProjectCard() {
+            const windowHeight = window.innerHeight;
+            const windowCenter = windowHeight / 2;
+    
+            projectCards.forEach((card, index) => {
+                const rect = card.getBoundingClientRect();
+                const cardCenter = rect.top + rect.height / 2;
+    
+                // Si le centre de la card est proche du centre de l'écran
+                if (Math.abs(cardCenter - windowCenter) < windowHeight / 3) {
+                    updateProjectCard(index);
+                }
+            });
+        }
+    
+        // Écoute du scroll
+        window.addEventListener('scroll', checkVisibleProjectCard);
+        
+        // Vérification initiale au chargement
+        checkVisibleProjectCard();
+    </script>
 
+
+    <script>
+function updateCarouselRotation() {
+    const carousel = document.querySelector('.carousel');
+    const rotation = window.scrollY * 1.3;
+    carousel.style.transform = `rotateY(${rotation}deg)`;
+}
+
+window.addEventListener('scroll', updateCarouselRotation);
+     </script>
 </body>
