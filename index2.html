@@ -43,7 +43,10 @@
     </section>
 
     <section id="s-projects">
-        <h2>Projects</h2>
+        <div class="project-title">
+            <h2>Projects</h2>
+        </div>
+        
     
         <div class="scroll-section-projects">
             <!-- Colonne gauche avec 4 cards -->
@@ -160,20 +163,30 @@
         }
     
         // Détection de la card visible pendant le scroll
-        function checkVisibleProjectCard() {
-            const windowHeight = window.innerHeight;
-            const windowCenter = windowHeight / 2;
+       function checkVisibleProjectCard() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const viewportCenter = scrollTop + window.innerHeight / 2;
     
-            projectCards.forEach((card, index) => {
-                const rect = card.getBoundingClientRect();
-                const cardCenter = rect.top + rect.height / 2;
+    let closestIndex = 0;
+    let closestDistance = Infinity;
     
-                // Si le centre de la card est proche du centre de l'écran
-                if (Math.abs(cardCenter - windowCenter) < windowHeight / 3) {
-                    updateProjectCard(index);
-                }
-            });
+    projectCards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardTop = rect.top + scrollTop;
+        const cardCenter = cardTop + rect.height / 2;
+        
+        const distance = Math.abs(cardCenter - viewportCenter);
+        
+        if (distance < closestDistance) {
+            closestDistance = distance;
+            closestIndex = index;
         }
+    });
+    
+    updateProjectCard(closestIndex);
+}
+
+
     
         // Écoute du scroll
         window.addEventListener('scroll', checkVisibleProjectCard);
