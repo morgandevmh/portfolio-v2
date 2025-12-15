@@ -259,7 +259,7 @@ margin: 80px 0;
 
 /* section skills */
 #s-skills {
-    height: 100vh ;
+    height: 60vh ;
     width: 100vw;
     max-height: 100vh;
     max-width: 100vw;
@@ -298,11 +298,11 @@ margin: 80px 0;
 }
 
 #s-skills div  .card-L:hover {
-    transform: rotate(25deg);
+    transform: rotate(18deg);
 }
 
 #s-skills div  .card-R:hover {
-    transform: rotate(-25deg);
+    transform: rotate(-18deg);
 }
 
 
@@ -329,14 +329,13 @@ margin: 80px 0;
     overflow: hidden;
     position: relative;
     background-color: var(--main-color-2);
-
 }
 
 h2 {
     padding-top: 2rem;
     font-size: 2.5rem;
-    margin-top: 6rem;
-    margin-bottom: 3rem;
+    margin-top: 9rem;
+    margin-bottom: 2rem;
     font-family: var(--title-font);
 
 }
@@ -355,7 +354,7 @@ h2 {
     width: 100%;
     height: 100%;
     transform-style: preserve-3d;
-    transition: transform 0.1s ease-out;
+
 }
 
 .s-certifs .slider .carousel .item {
@@ -368,7 +367,7 @@ h2 {
 
 .s-certifs .slider .carousel .item a {
     text-decoration: none;
-    color: black;
+    color: var(--text-color-1);
     font-family: var(--text-font);
 
 }

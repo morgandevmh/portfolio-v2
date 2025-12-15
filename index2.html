@@ -90,7 +90,7 @@
         <div class="slider">
             <div class="carousel" style="--quantity: 5">
                 <div class="item" style="--position: 1">
-                    <img src="img/white-3drender-1jpg.jpg" alt="">
+                    <img src="img/white-3drender-5.jpg" alt="">
                     <a href=""><h4>?</h4></a>
                 </div>
                 <div class="item" style="--position: 2">
@@ -98,20 +98,21 @@
                     <a href=""><h4>?</h4></a>
                 </div>
                 <div  class="item" style="--position: 3">
-                    <img src="img/certif-fcc-rwd.png" alt="">
-                    <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design"><h4>Responsive web design</h4></a>
+                    <img src="img/white-3drender-1jpg.jpg" alt="">
+                    <a href=""><h4>?</h4></a>
                 </div>
                 <div class="item" style="--position: 4">
                     <img src="img/white-3drender-4.jpg" alt="">
                     <a href=""><h4>?</h4></a>
                 </div>
                 <div class="item" style="--position: 5">
-                    <img src="img/white-3drender-5.jpg" alt="">
-                    <a href=""><h4>?</h4></a>
+                    <img src="img/certif-fcc-rwd.png" alt="">
+                    <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design"><h4>Responsive web design</h4></a>
                 </div>
             </div>
         </div>
     </section>
+
 
     <footer>
         <p>This is the first version of my portfolio, which is bound to evolve over time as my skills develop. </p>
@@ -139,7 +140,6 @@
             }
         ];
     
-        // DOM
         const projectCards = document.querySelectorAll('.project-card');
         const projectTitle = document.getElementById('project-title');
         const projectDescription = document.getElementById('project-description');
@@ -159,12 +159,12 @@
                 projectDescription.textContent = projectContents[index].description;
                 projectContent.classList.remove('fade');
                 currentProjectIndex = index;
-            }, 150);
+            }, 150);//ms temps d'apparition du contenu (temps que le contenu resté masqué )
         }
     
         // Détection de la card visible pendant le scroll
        function checkVisibleProjectCard() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop; // apres le ou ancienne methode pour vieux navigatuer
     const viewportCenter = scrollTop + window.innerHeight / 2;
     
     let closestIndex = 0;
@@ -186,23 +186,87 @@
     updateProjectCard(closestIndex);
 }
 
-
-    
         // Écoute du scroll
         window.addEventListener('scroll', checkVisibleProjectCard);
-        
+
         // Vérification initiale au chargement
         checkVisibleProjectCard();
     </script>
 
 
     <script>
-function updateCarouselRotation() {
-    const carousel = document.querySelector('.carousel');
-    const rotation = window.scrollY * 1.3;
-    carousel.style.transform = `rotateY(${rotation}deg)`;
-}
+        const certifSection = document.querySelector('.s-certifs');
+        const carousel = document.querySelector('.carousel');
+        
+        const CONFIG = {
+          scrollSensitivity: 4, 
+          totalRotation: 360,
+        };
+        
+        let isLocked = false;
+        let currentRotation = 0;
+        let startRotation = 0;
+        let lockScrollY = 0;
+        let tourCompleted = false; //éviter le re-lock immédiat
+        
 
-window.addEventListener('scroll', updateCarouselRotation);
+        // Verrouillage de la position
+        function lockAt(scrollY) {
+          isLocked = true;
+          lockScrollY = scrollY;
+          startRotation = currentRotation;
+          tourCompleted = false;
+          document.body.style.overflow = 'hidden';
+        }
+        
+        function unlock() {
+          isLocked = false;
+          tourCompleted = true;
+          document.body.style.overflow = '';
+          window.scrollTo(0, lockScrollY);
+        }
+        
+        // Détection de si la section est centrée
+        function isCentered() {
+          const rect = certifSection.getBoundingClientRect(); // methode, retourne dimension et position par rapport au viewport 
+          const center = window.innerHeight / 2;
+          return Math.abs(rect.top + rect.height / 2 - center) < 150; //calcul pour trouver voir si le centre de la section est plus ou moins au centre de l'ecran 
+        }
+        
+        // Scroll handler
+        window.addEventListener('wheel', (e) => {
+          // Active le lock si section centrée ET tour pas déjà complété
+          if (!isLocked && !tourCompleted && isCentered()) {
+            e.preventDefault();
+            const targetY = window.scrollY + certifSection.getBoundingClientRect().top + certifSection.offsetHeight / 2 - window.innerHeight / 2;
+            window.scrollTo(0, targetY);
+            lockAt(targetY);
+            return;
+          }
+          
+          // Rotation du carrousel si il est verrouillé
+          if (isLocked) {
+            e.preventDefault();
+            currentRotation += e.deltaY / CONFIG.scrollSensitivity;
+            carousel.style.transform = `rotateY(${currentRotation}deg)`;
+            
+            // Déverrouille après un tour complet
+            if (Math.abs(currentRotation - startRotation) >= CONFIG.totalRotation) {
+              unlock();
+            }
+          }
+        }, { passive: false });
+        
+        // Force la position pendant le lock
+        window.addEventListener('scroll', () => {
+          if (isLocked) {
+            window.scrollTo(0, lockScrollY);
+          }
+          
+          // Réinitialise tourCompleted quand on quitte la section
+          if (tourCompleted && !isCentered()) {
+            tourCompleted = false;
+          }
+        });
      </script>
 </body>
