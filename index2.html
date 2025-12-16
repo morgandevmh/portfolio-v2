@@ -193,80 +193,86 @@
         checkVisibleProjectCard();
     </script>
 
-
     <script>
         const certifSection = document.querySelector('.s-certifs');
-        const carousel = document.querySelector('.carousel');
-        
-        const CONFIG = {
-          scrollSensitivity: 4, 
-          totalRotation: 360,
-        };
-        
-        let isLocked = false;
-        let currentRotation = 0;
-        let startRotation = 0;
-        let lockScrollY = 0;
-        let tourCompleted = false; //éviter le re-lock immédiat
-        
+        const carousel = document.querySelector('.carousel')
 
-        // Verrouillage de la position
-        function lockAt(scrollY) {
-          isLocked = true;
-          lockScrollY = scrollY;
-          startRotation = currentRotation;
-          tourCompleted = false;
-          document.body.style.overflow = 'hidden';
+        const CONFIG = {
+            scrollSensitivity: 4,
+            totalRotation: 360,
+            centerTolerance: 150
+        };
+
+        let state = {
+            isLocked: false,
+            currentRotation: 0,
+            startRotation: 0,
+            lockScrollY: 0,
+            tourCompleted: false
+        };
+
+        //calcul de la position 
+        function getSectionCenterDistance() {
+            const rect = certifSection.getBoundingClientRect();
+            const viewportCenter = window.innerHeight / 2;
+            const sectionCenter = rect.top + rect.height /2;
+            return Math.abs(sectionCenter - viewportCenter);
         }
-        
-        function unlock() {
-          isLocked = false;
-          tourCompleted = true;
-          document.body.style.overflow = '';
-          window.scrollTo(0, lockScrollY);
+
+        function isCentered(){
+            return getSectionCenterDistance() <CONFIG.centerTolerance;
         }
-        
-        // Détection de si la section est centrée
-        function isCentered() {
-          const rect = certifSection.getBoundingClientRect(); // methode, retourne dimension et position par rapport au viewport 
-          const center = window.innerHeight / 2;
-          return Math.abs(rect.top + rect.height / 2 - center) < 150; //calcul pour trouver voir si le centre de la section est plus ou moins au centre de l'ecran 
+
+        //centrage et verrouillage 
+        function centerAndLock(){
+            const rect = certifSection.getBoundingClientRect();
+            const targetY = window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
+
+            window.scroll(0, targetY);
+
+            state.isLocked = true;
+            state.lockScrollY = targetY;
+            state.startRotation = state.currentRotation;
+            state.tourCompleted = false;
+            document.body.style.overflow = 'hidden';
         }
-        
-        // Scroll handler
-        window.addEventListener('wheel', (e) => {
-          // Active le lock si section centrée ET tour pas déjà complété
-          if (!isLocked && !tourCompleted && isCentered()) {
-            e.preventDefault();
-            const targetY = window.scrollY + certifSection.getBoundingClientRect().top + certifSection.offsetHeight / 2 - window.innerHeight / 2;
-            window.scrollTo(0, targetY);
-            lockAt(targetY);
-            return;
-          }
-          
-          // Rotation du carrousel si il est verrouillé
-          if (isLocked) {
-            e.preventDefault();
-            currentRotation += e.deltaY / CONFIG.scrollSensitivity;
-            carousel.style.transform = `rotateY(${currentRotation}deg)`;
-            
-            // Déverrouille après un tour complet
-            if (Math.abs(currentRotation - startRotation) >= CONFIG.totalRotation) {
-              unlock();
+
+        function unlock(){
+            state.isLocked = false;
+            state.tourCompleted = true;
+            document.body.style.overflow = '';
+            window.scrollTo(0,state.lockScrollY);
+        }
+
+        window.addEventListener('wheel', (e) =>{
+            if(!state.isLocked && !state.tourCompleted && isCentered()){
+                e.preventDefault();
+                centerAndLock();
+                return;
             }
-          }
+
+            //rotation carousel
+            if(state.isLocked){
+                e.preventDefault();
+
+                state.currentRotation += e.deltaY / CONFIG.scrollSensitivity;
+                carousel.style.transform = `rotateY(${state.currentRotation}deg)`;
+
+                const rotationProgress = Math.abs(state.currentRotation - state.startRotation);
+                if (rotationProgress >= CONFIG.totalRotation){
+                    unlock();
+                }
+            } 
         }, { passive: false });
-        
-        // Force la position pendant le lock
-        window.addEventListener('scroll', () => {
-          if (isLocked) {
-            window.scrollTo(0, lockScrollY);
-          }
-          
-          // Réinitialise tourCompleted quand on quitte la section
-          if (tourCompleted && !isCentered()) {
-            tourCompleted = false;
-          }
+
+        window.addEventListener('scroll', ()=> {
+            if(state.isLocked) {
+                window.scrollTo(0,state.lockScrollY);
+            }
+
+            if(state.tourCompleted && !isCentered()){
+                state.tourCompleted = false;
+            }
         });
-     </script>
+    </script>
 </body>
