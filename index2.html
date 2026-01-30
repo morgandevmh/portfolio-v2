@@ -87,29 +87,31 @@
 
     <section id="s-certifs" class="s-certifs">
         <h2>FCC Certifications</h2>
-        <div class="slider">
-            <div class="carousel" style="--quantity: 5">
-                <div class="item" style="--position: 1">
-                    <img src="img/white-3drender-5.jpg" alt="">
-                    <a href=""><h4>?</h4></a>
-                </div>
-                <div class="item" style="--position: 2">
-                    <img src="img/white-3drender-2.jpg" alt="">
-                    <a href=""><h4>?</h4></a>
-                </div>
-                <div  class="item" style="--position: 3">
-                    <img src="img/white-3drender-1jpg.jpg" alt="">
-                    <a href=""><h4>?</h4></a>
-                </div>
-                <div class="item" style="--position: 4">
-                    <img src="img/white-3drender-4.jpg" alt="">
-                    <a href=""><h4>?</h4></a>
-                </div>
-                <div class="item" style="--position: 5">
-                    <img src="img/certif-fcc-rwd.png" alt="">
-                    <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design"><h4>Responsive web design</h4></a>
-                </div>
-            </div>
+        <div class="slider-container">
+             <div class="slider">
+                 <div class="carousel" style="--quantity: 5">
+                        <div class="item" style="--position: 1">
+                            <img src="img/white-3drender-5.jpg" alt="">
+                            <a href=""><h4>?</h4></a>
+                        </div>
+                        <div class="item" style="--position: 2">
+                            <img src="img/white-3drender-2.jpg" alt="">
+                            <a href=""><h4>?</h4></a>
+                        </div>
+                        <div  class="item" style="--position: 3">
+                            <img src="img/white-3drender-1jpg.jpg" alt="">
+                            <a href=""><h4>?</h4></a>
+                        </div>
+                        <div class="item" style="--position: 4">
+                            <img src="img/white-3drender-4.jpg" alt="">
+                            <a href=""><h4>?</h4></a>
+                        </div>
+                        <div class="item" style="--position: 5">
+                            <img src="img/certif-fcc-rwd.png" alt="">
+                            <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design"><h4>Responsive web design</h4></a>
+                        </div>
+                 </div>
+             </div>
         </div>
     </section>
 
@@ -120,159 +122,5 @@
 
     
 
-    <script>
-        const projectContents = [
-            {
-                title: "Tribute Page",
-                description: "Une page hommage qui n'en n'est pas vraiment une. Cette page presente la salle de sport, son histoire, son concept, sa galerie photo et sa localisation. L’objectif était de travailler la mise en page, la hiérarchie visuelle et l’adaptation responsive du contenu (projet réaliser dans le cadre d'une certifications FreeCodeCamp)."
-            },
-            {
-                title: "Titre Projet 2",
-                description: "Voici la description du deuxième projet"
-            },
-            {
-                title: "Titre Projet 3",
-                description: "Troisième projet "
-            },
-            {
-                title: "Titre Projet 4",
-                description: "Dernier projet ."
-            }
-        ];
-    
-        const projectCards = document.querySelectorAll('.project-card');
-        const projectTitle = document.getElementById('project-title');
-        const projectDescription = document.getElementById('project-description');
-        const projectContent = document.querySelector('.project-card-content');
-    
-        let currentProjectIndex = 0;
-    
-        // Fonction maj card de droite 
-        function updateProjectCard(index) {
-            if (index === currentProjectIndex) return;
-            
-            // Effet de fade
-            projectContent.classList.add('fade');
-            
-            setTimeout(() => {
-                projectTitle.textContent = projectContents[index].title;
-                projectDescription.textContent = projectContents[index].description;
-                projectContent.classList.remove('fade');
-                currentProjectIndex = index;
-            }, 150);//ms temps d'apparition du contenu (temps que le contenu resté masqué )
-        }
-    
-        // Détection de la card visible pendant le scroll
-       function checkVisibleProjectCard() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop; // apres le ou ancienne methode pour vieux navigatuer
-    const viewportCenter = scrollTop + window.innerHeight / 2;
-    
-    let closestIndex = 0;
-    let closestDistance = Infinity;
-    
-    projectCards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const cardTop = rect.top + scrollTop;
-        const cardCenter = cardTop + rect.height / 2;
-        
-        const distance = Math.abs(cardCenter - viewportCenter);
-        
-        if (distance < closestDistance) {
-            closestDistance = distance;
-            closestIndex = index;
-        }
-    });
-    
-    updateProjectCard(closestIndex);
-}
-
-        // Écoute du scroll
-        window.addEventListener('scroll', checkVisibleProjectCard);
-
-        // Vérification initiale au chargement
-        checkVisibleProjectCard();
-    </script>
-
-    <script>
-        const certifSection = document.querySelector('.s-certifs');
-        const carousel = document.querySelector('.carousel')
-
-        const CONFIG = {
-            scrollSensitivity: 4,
-            totalRotation: 360,
-            centerTolerance: 150
-        };
-
-        let state = {
-            isLocked: false,
-            currentRotation: 0,
-            startRotation: 0,
-            lockScrollY: 0,
-            tourCompleted: false
-        };
-
-        //calcul de la position 
-        function getSectionCenterDistance() {
-            const rect = certifSection.getBoundingClientRect();
-            const viewportCenter = window.innerHeight / 2;
-            const sectionCenter = rect.top + rect.height /2;
-            return Math.abs(sectionCenter - viewportCenter);
-        }
-
-        function isCentered(){
-            return getSectionCenterDistance() <CONFIG.centerTolerance;
-        }
-
-        //centrage et verrouillage 
-        function centerAndLock(){
-            const rect = certifSection.getBoundingClientRect();
-            const targetY = window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
-
-            window.scroll(0, targetY);
-
-            state.isLocked = true;
-            state.lockScrollY = targetY;
-            state.startRotation = state.currentRotation;
-            state.tourCompleted = false;
-            document.body.style.overflow = 'hidden';
-        }
-
-        function unlock(){
-            state.isLocked = false;
-            state.tourCompleted = true;
-            document.body.style.overflow = '';
-            window.scrollTo(0,state.lockScrollY);
-        }
-
-        window.addEventListener('wheel', (e) =>{
-            if(!state.isLocked && !state.tourCompleted && isCentered()){
-                e.preventDefault();
-                centerAndLock();
-                return;
-            }
-
-            //rotation carousel
-            if(state.isLocked){
-                e.preventDefault();
-
-                state.currentRotation += e.deltaY / CONFIG.scrollSensitivity;
-                carousel.style.transform = `rotateY(${state.currentRotation}deg)`;
-
-                const rotationProgress = Math.abs(state.currentRotation - state.startRotation);
-                if (rotationProgress >= CONFIG.totalRotation){
-                    unlock();
-                }
-            } 
-        }, { passive: false });
-
-        window.addEventListener('scroll', ()=> {
-            if(state.isLocked) {
-                window.scrollTo(0,state.lockScrollY);
-            }
-
-            if(state.tourCompleted && !isCentered()){
-                state.tourCompleted = false;
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>

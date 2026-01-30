@@ -127,6 +127,7 @@ header {
 }
 
 
+
 /* section about me */
 #s-about {
     height: 80vh ;
@@ -327,6 +328,9 @@ margin: 80px 0;
     overflow: hidden;
     position: relative;
     background-color: var(--main-color-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h2 {
@@ -335,15 +339,21 @@ h2 {
     margin-top: 9rem;
     margin-bottom: 2rem;
     font-family: var(--title-font);
+}
 
+.slider-container {
+    height: 400px;
+    width: 650px;
+    position: relative;
 }
 
 .s-certifs .slider {
     position: absolute;
     width: 200px;
     height: 250px;
-    top: 40%;
-    left: calc(50% - 100px);
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%); 
     perspective: 1000px;
 }
 
