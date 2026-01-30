@@ -1,4 +1,4 @@
-# 🎨 Portfolio – [Morgan HASSOUNA]
+# Portfolio – [Morgan HASSOUNA]
 
 Welcome to my portfolio repository.
 
