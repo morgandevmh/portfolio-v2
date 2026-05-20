@@ -1,127 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PORTFOLIO - Hassouna Morgan</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PORTFOLIO - Hassouna Morgan</title>
+  <link rel="stylesheet" href="styles.css" />
 
+  <!-- Fonts : pas encore définitives -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
 </head>
 
-
 <body>
-    <header>
-        <nav id="navbar" class="navbar">
-            <ul class="nav-links">
-                <li class="navlink nl-1"><a href="#s-home">Home</a></li>
-                <li class="navlink nl-4"><a href="#s-about">About Me</a></li>
-                <li class="navlink nl-3"><a href="#s-projects">Projects</a></li>
-                <li class="navlink nl-3"><a href="#s-skills">Skills</a></li>
-                <li class="navlink nl-3"><a href="#s-certifs">Certifications</a></li>
-            </ul>
-        </nav>
 
-        <section id="s-home" class="s-home">
-            <h1> HASSOUNA Morgan</h1>
-            <h1 class="title"> PORTFOLIO </h1>
-            <p>contact : ...</p> <!-- menu deroulant avec mail, ... -->
-        </section>
-    </header>
+  <!-- NAVBAR-->
+  <header>
+    <nav id="navbar" class="navbar">
+      <ul class="nav-links">
+        <li class="navlink"><a href="#s-hero">Home</a></li>
+        <li class="navlink"><a href="#s-about">About Me</a></li>
+        <li class="navlink"><a href="#s-projects">Projects</a></li>
+        <li class="navlink"><a href="#s-skills">Skills</a></li>
+        <li class="navlink"><a href="#s-certifs">Certifications</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- HERO  -->
+    <section id="s-hero" class="hero">
+      <div class="mask-h"></div>
+      <div class="mask-v"></div>
+
+      <div class="hero-content">
+        <div class="hero-meta">
+          <div class="label">Portfolio &middot; 2026</div>
+        </div>
+
+        <h1 class="hero-title">
+          Morgan<br />
+          <em>Junior Web Dev</em>
+        </h1>
+
+        <div class="hero-footer">
+          <span>Available for work</span>
+          <a href="">contact me</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT ME -->
     <section id="s-about">
-        <h2>About Me</h2>
-        <div>
-            <img src="img/white-3drender-4.jpg" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum enim lorem, eget lacinia velit molestie et. Pellentesque tincidunt ornare dui, vehicula tristique justo vulputate nec.
-            <br>
-            Nam at sem ut lectus gravida pulvinar. Aenean sodales sem diam, et tincidunt nunc finibus quis. Etiam a lacus ut purus varius fermentum non non nisl. Nulla facilisi. Proin venenatis vitae magna vitae pretium.</p>
-
-        </div>
+      <h2>About Me</h2>
+      <div class="about-content">
+        <img src="img/white-3drender-4.jpg" alt="Portrait de Morgan Hassouna" />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum enim lorem,
+          eget lacinia velit molestie et. Pellentesque tincidunt ornare dui, vehicula tristique
+          justo vulputate nec.
+          <br /><br />
+          Nam at sem ut lectus gravida pulvinar. Aenean sodales sem diam, et tincidunt nunc
+          finibus quis. Etiam a lacus ut purus varius fermentum non non nisl. Nulla facilisi.
+          Proin venenatis vitae magna vitae pretium.
+        </p>
+      </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="s-projects">
-        <div class="project-title">
-            <h2>Projects</h2>
+      <div class="project-title">
+        <h2>Projects</h2>
+      </div>
+
+      <div class="scroll-section-projects">
+        <!-- Colonne gauche : 4 cards scrollable -->
+        <div class="project-left">
+          <div class="project-card" data-index="0">Project 1</div>
+          <div class="project-card" data-index="1">Project 2</div>
+          <div class="project-card" data-index="2">Project 3</div>
+          <div class="project-card" data-index="3">Project 4</div>
         </div>
-        
-    
-        <div class="scroll-section-projects">
-            <!-- Colonne gauche avec 4 cards -->
-            <div class="project-left">
-                <div class="project-card" data-index="0">Project 1</div>
-                <div class="project-card" data-index="1">Project 2</div>
-                <div class="project-card" data-index="2">Project 3</div>
-                <div class="project-card" data-index="3">Project 4</div>
+
+        <!-- Colonne droite : card sticky avec contenu dynamique -->
+        <div class="project-right">
+            <div class="project-card-fixed">
+              <div class="project-card-content">
+                <h3 id="project-title"></h3>
+                <p id="project-description"></p>
+              </div>
             </div>
-    
-            <!-- Colonne droite avec card fixe et texte dynamique -->
-            <div class="project-right">
-                <div class="project-card-fixed">
-                    <div class="project-card-content">
-                        <h3 id="project-title">Tribute Page</h3>
-                        <p id="project-description">Une page hommage qui n'en n'est pas vraiment une. Cette page presente la salle de sport, son histoire, son concept, sa galerie photo et sa localisation. L’objectif était de travailler la mise en page, la hiérarchie visuelle et l’adaptation responsive du contenu (projet réaliser dans le cadre d'une certifications FreeCodeCamp).</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+          </div>
+      </div>
     </section>
 
+    <!-- SKILLS -->
     <section id="s-skills">
-        <h2>Skills</h2>
-        <!-- liste ?? -->
-        <div>
-            <div class="skills-card card-R"><img src="icon/skills-icon /html-5-svgrepo-com.svg" alt="logo html 5">HTML5</div>
-            <div class="skills-card card-L"><img src="icon/skills-icon /css-svgrepo-com.svg" alt="logo css3">CSS3</div>
-            <div class="skills-card card-R"><img src="icon/skills-icon /javascript-svgrepo-com.svg" alt="logo javascript">JavaScript</div>
-            <div class="skills-card card-L"><img src="icon/skills-icon /react-svgrepo-com.svg" alt="logo react">REACT </div>
-            <div class="skills-card card-R in-progress"><img src="icon/skills-icon /node-js-svgrepo-com.svg" alt="logo node js ">Node JS</div>
-            <div class="skills-card card-L in-progress"><img src="icon/skills-icon /redux-svgrepo-com.svg" alt="logo redux">Redux</div>
-            <div class="skills-card card-R in-progress"><img src="icon/skills-icon /mongodb-svgrepo-com.svg" alt="logo mongodb">MongoDB</div>
-            <div class="skills-card card-L"><img src="icon/skills-icon /git-svgrepo-com.svg" alt="logo git ">Git</div>
-            <div class="skills-card card-R"><img src="icon/skills-icon /svg-github-icon .svg" alt="">GitHub</div>
+      <h2>Skills</h2>
+      <div class="skills-list">
+        <div class="skills-card card-R">
+          <img src="icon/skills-icon/html-5-svgrepo-com.svg" alt="logo HTML5" />HTML5
         </div>
+        <div class="skills-card card-L">
+          <img src="icon/skills-icon/css-svgrepo-com.svg" alt="logo CSS3" />CSS3
+        </div>
+        <div class="skills-card card-R">
+          <img src="icon/skills-icon/javascript-svgrepo-com.svg" alt="logo JavaScript" />JavaScript
+        </div>
+        <div class="skills-card card-L">
+            <img src="icon/skills-icon/typescript-official-svgrepo-com.svg" alt="logo TypeScript" />TypeScript
+        </div>
+        <div class="skills-card card-R">
+          <img src="icon/skills-icon/react-svgrepo-com.svg" alt="logo React" />REACT
+        </div>
+        <div class="skills-card card-L">
+            <img src="icon/skills-icon/Symbol.svg" alt="logo NextJS" />NextJS
+        </div>
+        <div class="skills-card card-R ">
+          <img src="icon/skills-icon/node-js-svgrepo-com.svg" alt="logo Node.js" />Node JS
+        </div>
+        <div class="skills-card card-R">
+            <img src="icon/skills-icon/tailwindcss-icon-svgrepo-com.svg" alt="logo TailwindCSS" />TailwindCSS
+        </div>
+        <div class="skills-card card-L ">
+          <img src="icon/skills-icon/redux-svgrepo-com.svg" alt="logo Redux" />Redux
+        </div>
+        <div class="skills-card card-R ">
+          <img src="icon/skills-icon/mongodb-svgrepo-com.svg" alt="logo MongoDB" />MongoDB
+        </div>
+        <div class="skills-card card-L">
+            <img src="icon/skills-icon/postgresql-svgrepo-com.svg" alt="logo postgreeSQL" />postgreSQL
+        </div>
+        <div class="skills-card card-R">
+            <img src="icon/skills-icon/light-prisma-svgrepo-com.svg" alt="logo Prisma" />PrismaORM
+        </div>
+        <div class="skills-card card-L">
+          <img src="icon/skills-icon/git-svgrepo-com.svg" alt="logo Git" />Git
+        </div>
+        <div class="skills-card card-R">
+          <img src="icon/skills-icon/github_logo_icon_229278.svg" alt="logo GitHub" />GitHub
+        </div>
+        <div class="skills-card card-L">
+            <img src="icon/skills-icon/figma-svgrepo-com.svg" alt="logo Figma" />Figma
+        </div>
+
+      </div>
     </section>
 
+    <!-- CERTIFICATIONS  -->
     <section id="s-certifs" class="s-certifs">
-        <h2>FCC Certifications</h2>
-        <div class="slider-container">
-             <div class="slider">
-                 <div class="carousel" style="--quantity: 5">
-                        <div class="item" style="--position: 1">
-                            <img src="img/white-3drender-5.jpg" alt="">
-                            <a href=""><h4>?</h4></a>
-                        </div>
-                        <div class="item" style="--position: 2">
-                            <img src="img/white-3drender-2.jpg" alt="">
-                            <a href=""><h4>?</h4></a>
-                        </div>
-                        <div  class="item" style="--position: 3">
-                            <img src="img/white-3drender-1jpg.jpg" alt="">
-                            <a href=""><h4>?</h4></a>
-                        </div>
-                        <div class="item" style="--position: 4">
-                            <img src="img/white-3drender-4.jpg" alt="">
-                            <a href=""><h4>?</h4></a>
-                        </div>
-                        <div class="item" style="--position: 5">
-                            <img src="img/certif-fcc-rwd.png" alt="">
-                            <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design"><h4>Responsive web design</h4></a>
-                        </div>
-                 </div>
-             </div>
+      <h2>FCC Certifications</h2>
+      <div class="slider-container">
+        <div class="slider">
+          <div class="carousel" style="--quantity: 5">
+            <div class="item" style="--position: 1">
+              <img src="img/white-3drender-5.jpg" alt="" />
+              <a href="#"><h4>à venir</h4></a>
+            </div>
+            <div class="item" style="--position: 2">
+              <img src="img/white-3drender-2.jpg" alt="" />
+              <a href="#"><h4>à venir</h4></a>
+            </div>
+            <div class="item" style="--position: 3">
+              <img src="img/white-3drender-1jpg.jpg" alt="" />
+              <a href="#"><h4>à venir</h4></a>
+            </div>
+            <div class="item" style="--position: 4">
+              <img src="img/white-3drender-4.jpg" alt="" />
+              <a href="#"><h4>à venir</h4></a>
+            </div>
+            <div class="item" style="--position: 5">
+              <img src="img/certif-fcc-rwd.png" alt="Certification Responsive Web Design" />
+              <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design" target="_blank" rel="noopener">
+                <h4>Responsive Web Design</h4>
+              </a>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
+  </main>
 
-    <footer>
-        <p>This is the first version of my portfolio, which is bound to evolve over time as my skills develop. </p>
-    </footer>
+  <!-- FOOTER -->
+  <footer>
+    <p>This is the first version of my portfolio, which is bound to evolve over time as my skills develop.</p>
+  </footer>
 
-    
-
-    <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
+</html>
