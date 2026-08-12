@@ -75,7 +75,7 @@
       <div class="project-title">
         <h2>Projects</h2>
       </div>
-
+    
       <div class="scroll-section-projects">
         <!-- Colonne gauche : 4 cards scrollable -->
         <div class="project-left">
@@ -84,17 +84,20 @@
           <div class="project-card" data-index="2">Project 3</div>
           <div class="project-card" data-index="3">Project 4</div>
         </div>
-
+    
         <!-- Colonne droite : card sticky avec contenu dynamique -->
         <div class="project-right">
-            <div class="project-card-fixed">
-              <div class="project-card-content">
-                <h3 id="project-title"></h3>
-                <p id="project-description"></p>
-              </div>
+          <div class="project-card-fixed">
+            <div class="project-card-content">
+              <h3 id="project-title"></h3>
+              <p id="project-description"></p>
             </div>
           </div>
+        </div>
       </div>
+    
+      <!-- Carrousel mobile : FRÈRE de scroll-section-projects, pas enfant -->
+      <div class="projects-carousel"></div>
     </section>
 
     <!-- SKILLS -->
@@ -152,7 +155,7 @@
 
     <!-- CERTIFICATIONS  -->
     <section id="s-certifs" class="s-certifs">
-      <h2>FCC Certifications</h2>
+      <h2>Certifications</h2>
       <div class="slider-container">
         <div class="slider">
           <div class="carousel" style="--quantity: 5">
@@ -170,7 +173,7 @@
             </div>
             <div class="item" style="--position: 4">
               <img src="img/white-3drender-4.jpg" alt="" />
-              <a href="#"><h4>à venir</h4></a>
+              <a href="#"><h4>Professional Certification in Web Development </h4></a>
             </div>
             <div class="item" style="--position: 5">
               <img src="img/certif-fcc-rwd.png" alt="Certification Responsive Web Design" />

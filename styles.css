@@ -525,3 +525,190 @@
     font-family: var(--font-text);
     color: var(--color-text-primary);
   }
+
+/* RESPONSIVE (≤ 600px)*/
+   @media (max-width: 600px) {
+
+    /* NAVBAR */
+    .navbar {
+      top: auto;
+      bottom: 0;
+      height: auto;
+      margin-top: 0;
+      padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); 
+    }
+  
+    .navbar .nav-links {
+      max-width: calc(100vw - 24px);
+      gap: 4px;
+      padding: 6px 8px;
+    }
+  
+    .navbar .nav-links .navlink   { margin: 0 4px; }
+    .navbar .nav-links .navlink a { font-size: 12px; }
+  
+    body { padding-bottom: 88px; }
+
+    /* CERTIFS */
+    .slider-container {
+      width: 58%;
+      max-width: 300px;
+      height: 440px;
+      margin: 0 auto;
+    }
+  
+    /* Anneau 3D agrandi pour des cartes plus grandes */
+    .s-certifs .slider {
+      transform: translateX(-50%) scale(0.72);
+    }
+  
+
+    /* RESPONSIVE PROJECTS */
+  
+    /* Masqué par défaut : le desktop garde le sticky */
+    .projects-carousel { display: none; }
+  
+  
+  
+    /* On cache la version deux-colonnes… */
+    .scroll-section-projects { display: none; }
+  
+    /* …et on affiche le carrousel centré */
+    .projects-carousel {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      /* padding qui permet à la 1re et à la dernière carte de se centrer */
+      padding: 0 15vw 24px;
+      scrollbar-width: none;
+    }
+    .projects-carousel::-webkit-scrollbar { display: none; }
+  
+    .pcard {
+      position: relative;
+      flex: 0 0 80vw;  
+      height: 75vh;
+      max-height: 520px;
+      scroll-snap-align: center;
+      background: var(--color-bg-elevated);
+      border: var(--border-1);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      /* voisines réduites/atténuées, carte centrale nette */
+      transform: scale(0.9);
+      opacity: 0.5;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+    .pcard.is-active { transform: scale(1); opacity: 1; }
+  
+    /* Aperçu couleur (majeure partie de la carte) */
+    .pcard-img { flex: 0 0 60%; width: 100%; }
+  
+    .pcard-body {
+      flex: 1 1 auto;
+      padding: 14px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pcard-domain {
+      align-self: flex-start;
+      font-size: 10px;
+      letter-spacing: 1px;
+      color: var(--color-text-secondary);
+      border: var(--border-1);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+    }
+    .pcard-name  { font-size: 1.2rem; font-family: var(--font-title); color: var(--color-text-primary); }
+    .pcard-stack { font-size: 0.8rem; color: var(--color-text-secondary); }
+  
+    .pcard-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .pcard-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; color: var(--color-accent); text-decoration: none;
+    }
+    .pcard-more, .pcard-less {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: var(--border-1);
+      background: var(--color-bg-glass);
+      color: var(--color-text-primary);
+      font-size: 20px; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+  
+    /* Voile en verre : monte du bas au clic sur "+" */
+    .pcard-panel {
+      position: absolute;
+      inset: 0;
+      background: rgba(18, 18, 18, 0.62);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .pcard-panel.is-open { transform: translateY(0); }
+    .pcard-panel-name { font-size: 1rem; font-family: var(--font-title); color: var(--color-text-primary); margin-bottom: 10px; }
+    .pcard-desc { font-size: 0.85rem; line-height: 1.6; color: #d0d0d0; flex: 1 1 auto; }
+    .pcard-less { margin-top: 12px; }
+  }
+
+  /* RESPONSIVE ABOUT */
+@media (max-width: 1024px) {
+  #s-about {
+    min-height: auto;          /* fin du 80vh imposé */
+    padding: 48px 0;
+  }
+  #s-about h2 { margin: 0 0 32px; }
+
+  #s-about .about-content {
+    flex-direction: column;    
+    align-items: center;
+    gap: 24px;
+  }
+  #s-about .about-content img {
+    height: 200px;
+    width: 200px;
+    margin: 0;
+  }
+  #s-about .about-content p {
+    display: block;            /* annule le flex d'origine (height 300 / center) */
+    height: auto;
+    width: 100%;
+    max-width: 560px;
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  #s-about { padding: 120px 0 80px 0; }
+  #s-about .about-content img { height: 150px; width: 150px; }
+  #s-about .about-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    padding: 0 20px;
+  }
+
+
+  /* SKILLS */
+  #s-skills .skills-list {
+    width: calc(100% - 48px);   /* 24px de marge de chaque côté */
+    max-width: 600px;
+    margin: 0 auto;             /* centrage */
+    padding: 0;
+  }
+}
