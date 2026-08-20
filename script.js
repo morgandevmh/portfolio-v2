@@ -49,52 +49,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* 2. PROJECTS (desktop : sticky + IntersectionObserver) */
+  (function initProjects() {
+    const projectContents = [
+      { title: "Application de gestion locative", description: " " },
+      { title: "Labor",                           description: " " },
+      { title: "Secura",                          description: " " },
+      { title: "My Pokedex",                      description: " " }
+    ];
 
-  const projectContents = [
-    {
-      title: "Application de gestion locative",
-      description: " "
-    },
-    {
-      title: "Labor",
-      description: " "
-    },
-    {
-      title: "Secura",
-      description: ""
-    },
-    {
-      title: "My Pokedex",
-      description: " "
+    const projectCards       = document.querySelectorAll('.project-card');
+    const projectTitle       = document.getElementById('project-title');
+    const projectDescription = document.getElementById('project-description');
+    const projectContent     = document.querySelector('.project-card-content');
+
+    if (!projectCards.length || !projectTitle || !projectDescription || !projectContent) return;
+
+    // État initial cohérent : le DOM affiche le projet 0, l'index le sait
+    projectTitle.textContent       = projectContents[0].title;
+    projectDescription.textContent = projectContents[0].description;
+
+    let currentProjectIndex = 0;
+    let fadeTimer = null;
+
+    function updateProjectCard(index) {
+      if (index === currentProjectIndex) return;
+
+      clearTimeout(fadeTimer);
+      projectContent.classList.add('fade');
+
+      fadeTimer = setTimeout(() => {
+        projectTitle.textContent       = projectContents[index].title;
+        projectDescription.textContent = projectContents[index].description;
+        projectContent.classList.remove('fade');
+        currentProjectIndex = index;
+      }, 200);
     }
-  ];
 
-  const projectCards       = document.querySelectorAll('.project-card');
-  const projectTitle       = document.getElementById('project-title');
-  const projectDescription = document.getElementById('project-description');
-  const projectContent     = document.querySelector('.project-card-content');
-
-  // Mise à jour de la card de droite avec effet fade
-  let currentProjectIndex = 0;
-  let fadeTimer = null;
-
-  function updateProjectCard(index) {
-    if (index === currentProjectIndex) return;
-
-    clearTimeout(fadeTimer);
-    projectContent.classList.add('fade');
-
-    fadeTimer = setTimeout(() => {
-      projectTitle.textContent       = projectContents[index].title;
-      projectDescription.textContent = projectContents[index].description;
-      projectContent.classList.remove('fade');
-      currentProjectIndex = index;
-    }, 200);
-  }
-
-  // Détecte la card active via IntersectionObserver
-  const projectObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+    // Détecte la card active via IntersectionObserver
+    const projectObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const index = Array.from(projectCards).indexOf(entry.target);
           updateProjectCard(index);
@@ -105,38 +98,138 @@ document.addEventListener('DOMContentLoaded', () => {
       threshold: 0
     });
 
-  projectCards.forEach(card => projectObserver.observe(card));
-
-
-  /* 3. CAROUSEL (desktop : molette) */
-  (function initCarousel() {
-    const sliderContainer = document.querySelector('.slider-container');
-    const carousel        = document.querySelector('.carousel');
-    if (!sliderContainer || !carousel) return;
-
-    const scrollSensitivity = 4;
-    let currentRotation = 0;
-    let isHovering      = false;
-
-    sliderContainer.addEventListener('mouseenter', () => { isHovering = true;  });
-    sliderContainer.addEventListener('mouseleave', () => { isHovering = false; });
-
-    sliderContainer.addEventListener('wheel', (e) => {
-      if (!isHovering) return;
-      e.preventDefault();
-      currentRotation += e.deltaY / scrollSensitivity;
-      carousel.style.transform = `rotateY(${currentRotation}deg)`;
-    }, { passive: false });
+    projectCards.forEach((card) => projectObserver.observe(card));
   })();
 
 
-  /* 4. SCROLL */
+  /* 3. CAROUSEL CERTIFS — module unifié (souris + tactile, comportement identique) */
+  (function initCertifCarousel() {
+    const container = document.querySelector('.slider-container');
+    const carousel  = document.querySelector('.carousel');
+    if (!container || !carousel) return;
+
+    const SENSITIVITY = 0.45;   // degrés de rotation par pixel de geste
+    const GLIDE_TIME  = 0.6;   // durée approximative de l'inertie, en secondes
+    const MIN_SPEED   = 8;     // deg/s — en dessous, l'inertie s'arrête
+    const FLICK_SPEED = 90;    // deg/s — vitesse minimale pour lancer l'inertie
+    const STALE_MS    = 90;    // ms sans mouvement → geste considéré à l'arrêt
+
+    // ---- SOURCE DE VÉRITÉ UNIQUE ----
+    let rotation = 0;
+
+    let dragging = false;
+    let pointerId = null;
+    let startX = 0, startRotation = 0;
+    let lastRotation = 0, velocity = 0, lastMoveTime = 0;
+    let momentumId = null;
+
+    const render = () => {
+      carousel.style.transform = `rotateY(${rotation}deg)`;
+    };
+
+    const stopMomentum = () => {
+      if (momentumId) {
+        cancelAnimationFrame(momentumId);
+        momentumId = null;
+      }
+    };
+
+    const onPointerDown = (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      stopMomentum();
+
+      dragging      = true;
+      pointerId     = e.pointerId;
+      startX        = e.clientX;
+      startRotation = rotation;
+      lastRotation  = rotation;
+      velocity      = 0;
+      lastMoveTime  = performance.now();
+
+      // capture posée immédiatement : le drag survit à la sortie de zone
+      try { container.setPointerCapture(e.pointerId); } catch (_) {}
+      container.classList.add('is-dragging');
+    };
+
+    const onPointerMove = (e) => {
+      if (!dragging || e.pointerId !== pointerId) return;
+
+      const now  = performance.now();
+      const next = startRotation + (e.clientX - startX) * SENSITIVITY;
+      const dt   = (now - lastMoveTime) / 1000;
+
+      if (dt > 0) {
+        const instant = (next - lastRotation) / dt;   // deg/s
+        // lissage exponentiel : évite les pics parasites en fin de geste
+        velocity = velocity * 0.7 + instant * 0.3;
+      }
+
+      lastRotation = next;
+      lastMoveTime = now;
+      rotation     = next;
+      render();
+    };
+
+    const endDrag = (e) => {
+      if (!dragging || (e && e.pointerId !== pointerId)) return;
+
+      dragging = false;
+      container.classList.remove('is-dragging');
+
+      if (e && container.hasPointerCapture?.(e.pointerId)) {
+        container.releasePointerCapture(e.pointerId);
+      }
+      pointerId = null;
+
+      // geste immobilisé avant le relâchement → pas d'inertie
+      if (performance.now() - lastMoveTime > STALE_MS) velocity = 0;
+
+      if (Math.abs(velocity) > FLICK_SPEED) {
+        let last = performance.now();
+
+        const step = (now) => {
+          const dt = Math.min((now - last) / 1000, 0.05);  // borne les gros écarts
+          last = now;
+
+          rotation += velocity * dt;
+          render();
+
+          // décroissance exponentielle calée sur le temps réel
+          velocity *= Math.exp(-dt / (GLIDE_TIME / 3));
+
+          momentumId = Math.abs(velocity) > MIN_SPEED
+            ? requestAnimationFrame(step)
+            : null;
+        };
+        momentumId = requestAnimationFrame(step);
+      }
+    };
+
+    container.addEventListener('pointerdown', onPointerDown);
+    container.addEventListener('pointermove', onPointerMove);
+    container.addEventListener('pointerup', endDrag);
+    container.addEventListener('pointercancel', endDrag);
+
+    // filet de sécurité : si le navigateur nous reprend la capture
+    window.addEventListener('pointerup', endDrag);
+    window.addEventListener('pointercancel', endDrag);
+    window.addEventListener('blur', () => endDrag(null));
+
+    // les <img> sont draggables nativement, ça parasite le geste souris
+    container.addEventListener('dragstart', (e) => e.preventDefault());
+
+    render();
+  })();
+
+
+  /* 4. SCROLL — changement de couleur par section
+     (toutes les sections sont identiques pour l'instant : effet neutre) */
   function changeColorOnScroll() {
     const sections = document.querySelectorAll('section[id^="s-"]');
     const root     = document.documentElement;
 
     const sectionColors = {
-      's-home':     { bg: 'var(--palette-black)', text: 'var(--palette-white)' },
+      's-hero':     { bg: 'var(--palette-black)', text: 'var(--palette-white)' },
       's-about':    { bg: 'var(--palette-black)', text: 'var(--palette-white)' },
       's-projects': { bg: 'var(--palette-black)', text: 'var(--palette-white)' },
       's-skills':   { bg: 'var(--palette-black)', text: 'var(--palette-white)' },
@@ -161,17 +254,35 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', changeColorOnScroll);
   changeColorOnScroll();
 
-}); // ===== FIN DU DOMContentLoaded PRINCIPAL =====
+
+  /* 5. FOOTER — copie de l'email */
+  (function initCopyMail() {
+    const btn = document.querySelector('.footer-copy');
+    if (!btn || !navigator.clipboard) return;
+
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.mail);
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(() => { btn.textContent = original; }, 1600);
+      } catch (_) {
+        // clipboard indisponible (contexte non sécurisé) : le lien mailto reste actif
+      }
+    });
+  })();
+
+}); 
 
 
-/* BLOCS RESPONSIVE  */
+/* BLOCS RESPONSIVE */
 
-/* RESPONSIVE  Projects : carrousel mobile (≤600px) */
+/* RESPONSIVE — Projects : carrousel mobile (≤600px) */
 document.addEventListener('DOMContentLoaded', () => {
   const rail = document.querySelector('.projects-carousel');
   if (!rail) return;
 
-  // ---- CONTENU PLACEHOLDER  ----
+  // ---- CONTENU PLACEHOLDER ----
   const projectsData = [
     { name: "Gestion locative", domain: "FULL-STACK", stack: "React · Node · Mongo",
       url: "#", color: "linear-gradient(150deg,#0f6e56,#0b2f28)",
@@ -187,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
       desc: "Placeholder — courte description à remplacer." }
   ];
 
-  const linkIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
+  const linkIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg>';
 
   projectsData.forEach((p) => {
     const card = document.createElement('article');
@@ -232,65 +343,3 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', updateFocus);
   requestAnimationFrame(updateFocus);
 });
-
-
-/* RESPONSIVE — Certifs : swipe tactile + inertie */
-document.addEventListener('DOMContentLoaded', () => {
-  const sliderContainer = document.querySelector('.slider-container');
-  const carousel        = document.querySelector('.carousel');
-  if (!sliderContainer || !carousel) return;
-
-  const sensitivity = 0.6;   // degrés par pixel
-  const decay       = 0.94;  // frein de l'inertie (plus proche de 1 = glisse plus longtemps)
-
-  let startX = 0, startY = 0, startRotation = 0, axis = null, dragging = false;
-  let rotation = 0, lastRotation = 0, velocity = 0, momentumId = null;
-
-  const currentY = () => {
-    const m = carousel.style.transform.match(/rotateY\(([-0-9.]+)deg\)/);
-    return m ? parseFloat(m[1]) : 0;
-  };
-  const apply = (r) => { rotation = r; carousel.style.transform = `rotateY(${r}deg)`; };
-
-  sliderContainer.addEventListener('touchstart', (e) => {
-    dragging = true;
-    axis = null;
-    if (momentumId) { cancelAnimationFrame(momentumId); momentumId = null; } // coupe l'inertie en cours
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    startRotation = currentY();
-    lastRotation = startRotation;
-    velocity = 0;
-  }, { passive: true });
-
-  sliderContainer.addEventListener('touchmove', (e) => {
-    if (!dragging) return;
-    const dx = e.touches[0].clientX - startX;
-    const dy = e.touches[0].clientY - startY;
-
-    if (axis === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
-      axis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    }
-    if (axis === 'x') {
-      e.preventDefault();
-      const r = startRotation + dx * sensitivity;
-      velocity = r - lastRotation;   // vitesse instantanée du geste
-      lastRotation = r;
-      apply(r);
-    }
-  }, { passive: false });
-
-  sliderContainer.addEventListener('touchend', () => {
-    dragging = false;
-    if (axis === 'x' && Math.abs(velocity) > 0.2) {
-      const step = () => {
-        rotation += velocity;
-        carousel.style.transform = `rotateY(${rotation}deg)`;
-        velocity *= decay;
-        momentumId = (Math.abs(velocity) > 0.05) ? requestAnimationFrame(step) : null;
-      };
-      momentumId = requestAnimationFrame(step);
-    }
-  });
-});
-  
