@@ -3,207 +3,348 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PORTFOLIO - Hassouna Morgan</title>
-  <link rel="stylesheet" href="styles.css" />
 
-  <!-- Fonts : pas encore définitives -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+  <title>Morgan Hassouna — Développeur web junior</title>
+  <meta name="description" content="Développeur web junior, titre DWWM obtenu en 2026. En recherche d'alternance à Paris, Bordeaux ou Toulouse. Projets en Next.js, React et TypeScript." />
+
+  <!-- Open Graph : image a produire en phase 6 (1200x630) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Morgan Hassouna — Développeur web junior" />
+  <meta property="og:description" content="Développeur web junior, titre DWWM obtenu en 2026. En recherche d'alternance à Paris, Bordeaux ou Toulouse." />
+  <meta property="og:image" content="PLACEHOLDER_OG_IMAGE" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <link rel="icon" href="PLACEHOLDER_FAVICON" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
 
-  <!-- NAVBAR-->
+  <!-- ====================================================== NAVBAR ====== -->
   <header>
     <nav id="navbar" class="navbar">
       <ul class="nav-links">
-        <li class="navlink"><a href="#s-hero">Home</a></li>
-        <li class="navlink"><a href="#s-about">About Me</a></li>
-        <li class="navlink"><a href="#s-projects">Projects</a></li>
-        <li class="navlink"><a href="#s-skills">Skills</a></li>
-        <li class="navlink"><a href="#s-certifs">Certifications</a></li>
+        <li class="navlink"><a href="#s-hero"     data-i18n="nav.home">Accueil</a></li>
+        <li class="navlink"><a href="#s-about"    data-i18n="nav.about">À propos</a></li>
+        <li class="navlink"><a href="#s-projects" data-i18n="nav.projects">Projets</a></li>
+        <li class="navlink"><a href="#s-skills"   data-i18n="nav.skills">Skills</a></li>
+        <li class="navlink lang-switch" role="group" data-i18n-aria-label="nav.langAria" aria-label="Changer de langue">
+          <button type="button" class="lang-btn is-active" data-lang="fr" lang="fr" aria-label="Français" aria-pressed="true">FR</button>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button type="button" class="lang-btn" data-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+        </li>
       </ul>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main>
 
-    <!-- HERO  -->
+    <!-- ==================================================== HERO ======== -->
     <section id="s-hero" class="hero">
       <div class="mask-h"></div>
       <div class="mask-v"></div>
 
       <div class="hero-content">
-        <h1 class="hero-title">
-          Morgan<br />
-          <em>Junior Web Dev</em>
-        </h1>
+        <div class="hero-identity">
+          <h1 class="hero-title" data-i18n="hero.name">Morgan Hassouna</h1>
+          <p class="hero-role"   data-i18n="hero.role">Développeur web junior</p>
+          <!-- Ligne a vider quand l'alternance est trouvee -->
+          <p class="hero-status" data-i18n="hero.status">En recherche d'alternance</p>
+        </div>
 
         <div class="hero-footer">
-          <a href="#contact">contact me</a>
+          <a href="#contact" data-i18n="hero.cta">me contacter</a>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT ME -->
+    <!-- ==================================================== ABOUT ======= -->
     <section id="s-about">
-      <h2>About Me</h2>
+      <h2 data-i18n="about.heading">À propos</h2>
+
       <div class="about-content">
-        <img src="img/white-3drender-4.jpg" alt="Portrait de Morgan Hassouna" />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum enim lorem,
-          eget lacinia velit molestie et. Pellentesque tincidunt ornare dui, vehicula tristique
-          justo vulputate nec.
-          <br /><br />
-          Nam at sem ut lectus gravida pulvinar. Aenean sodales sem diam, et tincidunt nunc
-          finibus quis. Etiam a lacus ut purus varius fermentum non non nisl. Nulla facilisi.
-          Proin venenatis vitae magna vitae pretium.
-        </p>
+        <img src="PLACEHOLDER_IMG_PORTRAIT"
+             data-i18n-alt="about.imageAlt"
+             alt="Portrait de Morgan Hassouna" />
+
+        <div class="about-text">
+          <p data-i18n="about.p1">J'ai mis du temps à trouver ce que je voulais faire. Des études en droit, puis en langues étrangères, plusieurs années de travail alimentaire en attendant — rien qui me projetait vraiment. La programmation, je l'ai croisée par hasard, en suivant des cours gratuits et des vidéos. Ça a pris, et je me suis inscrit à la formation.</p>
+          <p data-i18n="about.p2">Titre professionnel Développeur Web et Web Mobile obtenu en juin 2026. Je cherche maintenant une alternance pour enchaîner sur le titre Concepteur Développeur d'Applications — et surtout pour travailler aux côtés de gens du métier, ce qui compte le plus à mes yeux à ce stade. Paris en priorité, Bordeaux et Toulouse également.</p>
+          <p data-i18n="about.p3">Le front-end est ce qui me parle le plus pour l'instant, sans que ce soit une frontière : le back m'intéresse de plus en plus, et je ne m'interdis pas de découvrir autre chose que le web.</p>
+        </div>
       </div>
     </section>
 
-    <!-- PROJECTS -->
+    <!-- ==================================================== PROJETS ===== -->
+    <!--
+      Contenu duplique volontairement : colonne desktop (.project-*) et
+      carrousel mobile (.pcard). Toute modification doit etre faite dans les
+      deux blocs ET dans content.js. Voir la note en bas de fichier.
+      Limite : 780 caracteres par projet pour les paragraphes de description
+      cumules (voir styles.css, section 6).
+    -->
     <section id="s-projects">
       <div class="project-title">
-        <h2>Projects</h2>
+        <h2 data-i18n="projects.heading">Projets</h2>
       </div>
-    
+
+      <!-- ---------- Desktop : colonne scrollable + panneau sticky ------- -->
       <div class="scroll-section-projects">
-        <!-- Colonne gauche : 4 cards scrollable -->
+
         <div class="project-left">
-          <div class="project-card" data-index="0">Project 1</div>
-          <div class="project-card" data-index="1">Project 2</div>
-          <div class="project-card" data-index="2">Project 3</div>
-          <div class="project-card" data-index="3">Project 4</div>
+          <article class="project-card" data-project="agl">
+            <img src="PLACEHOLDER_IMG_AGL" data-i18n-alt="agl.imgAlt" alt="Capture de l'application AGL" />
+            <h3 data-i18n="agl.name">AGL</h3>
+          </article>
+
+          <article class="project-card" data-project="labor">
+            <img src="PLACEHOLDER_IMG_LABOR" data-i18n-alt="labor.imgAlt" alt="Capture de la plateforme Labor" />
+            <h3 data-i18n="labor.name">Labor</h3>
+          </article>
+
+          <article class="project-card" data-project="portfolio">
+            <img src="PLACEHOLDER_IMG_PORTFOLIO" data-i18n-alt="portfolio.imgAlt" alt="Capture de ce portfolio" />
+            <h3 data-i18n="portfolio.name">Portfolio</h3>
+          </article>
         </div>
-    
-        <!-- Colonne droite : card sticky avec contenu dynamique -->
+
         <div class="project-right">
           <div class="project-card-fixed">
-            <div class="project-card-content">
-              <h3 id="project-title"></h3>
-              <p id="project-description"></p>
+
+            <!-- AGL -->
+            <div class="project-panel is-active" data-project="agl">
+              <div class="project-badges">
+                <span class="project-domain">FULL-STACK</span>
+                <span class="project-status" data-i18n="agl.status">MVP terminé</span>
+              </div>
+              <h3 data-i18n="agl.name">AGL</h3>
+              <p class="project-stack">Next.js 15 · TypeScript · PostgreSQL · Prisma · Better Auth · Zod</p>
+              <p data-i18n="agl.p1">AGL répond à un besoin observé autour de moi : des propriétaires qui jonglent entre tableurs, mails et documents papier. L'application centralise biens, locataires et informations administratives, et génère automatiquement les baux en PDF, l'étape que les bailleurs jugeaient la plus pénible.</p>
+              <p data-i18n="agl.p2">C'est cette génération qui m'a demandé le plus de travail : transformer les données (dates, montants, loyer total, lieu de signature), les fusionner dans un template, puis produire et stocker le PDF. La fonctionnalité est découpée en quatre modules orchestrés par une seule route.</p>
+              <p data-i18n="agl.p3">Projet mené seul de bout en bout, avec un workflow calqué sur un travail d'équipe : milestones, branches, Pull Requests. Le MVP a validé mon titre DWWM en juin 2026 ; la V1.5 portera sur le déploiement.</p>
+              <div class="project-links">
+                <a href="https://github.com/morgandevmh/application-gestion-locative" target="_blank" rel="noopener" data-i18n="projects.source">Code source</a>
+              </div>
             </div>
+
+            <!-- Labor -->
+            <div class="project-panel" data-project="labor">
+              <div class="project-badges">
+                <span class="project-domain">FRONT-END</span>
+                <span class="project-status" data-i18n="labor.status">Projet de groupe · Stage — arrêté</span>
+              </div>
+              <h3 data-i18n="labor.name">Labor</h3>
+              <p class="project-stack">React · TypeScript · Vite · CSS</p>
+              <p data-i18n="labor.p1">Labor met en relation des agriculteurs et des travailleurs saisonniers, en s'adressant à l'ensemble de l'espace francophone plutôt qu'au seul marché français. Le projet a été mené en équipe pendant un stage de deux mois, avec trois développeurs sur la partie front.</p>
+              <p data-i18n="labor.p2">Comme lead front, j'ai posé l'identité visuelle du projet : logo et charte graphique v1, utilisée comme référence par l'équipe. Côté code, j'ai défini l'architecture front, les conventions et le design system en tokens CSS, puis développé une partie des tickets : routing, mocks MSW, composants, layouts et landing page.</p>
+              <p data-i18n="labor.p3">Le projet s'est arrêté à la fin du stage, aux deux tiers du MVP maquetté. Fondations, design system et landing page sont en place ; les espaces agriculteur et saisonnier n'ont pas été terminés.</p>
+              <div class="project-links">
+                <a href="https://github.com/aymericpbdev/Project-Labor" target="_blank" rel="noopener" data-i18n="projects.source">Code source</a>
+              </div>
+            </div>
+
+            <!-- Portfolio -->
+            <div class="project-panel" data-project="portfolio">
+              <div class="project-badges">
+                <span class="project-domain">FRONT-END</span>
+                <span class="project-status" data-i18n="portfolio.status">En évolution</span>
+              </div>
+              <h3 data-i18n="portfolio.name">Portfolio</h3>
+              <p class="project-stack">HTML · CSS · JavaScript</p>
+              <p data-i18n="portfolio.p1">Ce site présente mes projets et en est un lui-même : le code est public, et c'est là que j'expérimente en CSS et JavaScript natifs.</p>
+              <p data-i18n="portfolio.p2">J'ai choisi de l'écrire sans framework. Pour une page vitrine, HTML, CSS et JavaScript me suffisaient, et travailler sans couche d'abstraction m'oblige à comprendre ce que je manipule. Avec AGL, ce sont les deux projets de ma première année que je compte faire vivre : l'un pour apprendre un écosystème complet, l'autre pour revenir aux fondamentaux.</p>
+              <p data-i18n="portfolio.p3">Je l'envisage comme une vitrine amenée à évoluer au fil de mes envies de tester de nouvelles choses. Le code est organisé dans cet esprit : styles centralisés en variables CSS, et un JavaScript découpé en modules autonomes, chacun se désactivant proprement si la section qu'il pilote n'est pas là.</p>
+              <div class="project-links">
+                <a href="https://github.com/morgandevmh/portfolio-v2" target="_blank" rel="noopener" data-i18n="projects.source">Code source</a>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-    
-      <!-- Carrousel mobile : FRÈRE de scroll-section-projects, pas enfant -->
-      <div class="projects-carousel"></div>
+
+      <!-- ---------- Mobile : carrousel ---------------------------------- -->
+      <div class="projects-carousel">
+
+        <article class="pcard" data-project="agl">
+          <img class="pcard-img" src="PLACEHOLDER_IMG_AGL" data-i18n-alt="agl.imgAlt" alt="Capture de l'application AGL" />
+          <div class="pcard-body">
+            <span class="pcard-domain">FULL-STACK</span>
+            <h3 class="pcard-name" data-i18n="agl.name">AGL</h3>
+            <span class="pcard-stack">Next.js 15 · TypeScript · PostgreSQL · Prisma</span>
+            <p class="pcard-summary" data-i18n="agl.summary">Application de gestion locative full-stack : biens, locataires, baux et génération automatique de contrats PDF. Projet de certification DWWM.</p>
+            <div class="pcard-footer">
+              <a class="pcard-link" href="https://github.com/morgandevmh/application-gestion-locative" target="_blank" rel="noopener" data-i18n="projects.source">Code source</a>
+              <button type="button" class="pcard-more" data-i18n-aria-label="projects.ariaOpen" aria-label="Voir la description">+</button>
+            </div>
+          </div>
+          <div class="pcard-panel">
+            <h3 class="pcard-panel-name" data-i18n="agl.name">AGL</h3>
+            <div class="pcard-desc">
+              <p data-i18n="agl.p1">AGL répond à un besoin observé autour de moi : des propriétaires qui jonglent entre tableurs, mails et documents papier. L'application centralise biens, locataires et informations administratives, et génère automatiquement les baux en PDF, l'étape que les bailleurs jugeaient la plus pénible.</p>
+              <p data-i18n="agl.p2">C'est cette génération qui m'a demandé le plus de travail : transformer les données (dates, montants, loyer total, lieu de signature), les fusionner dans un template, puis produire et stocker le PDF. La fonctionnalité est découpée en quatre modules orchestrés par une seule route.</p>
+              <p data-i18n="agl.p3">Projet mené seul de bout en bout, avec un workflow calqué sur un travail d'équipe : milestones, branches, Pull Requests. Le MVP a validé mon titre DWWM en juin 2026 ; la V1.5 portera sur le déploiement.</p>
+            </div>
+            <button type="button" class="pcard-less" data-i18n-aria-label="projects.ariaClose" aria-label="Fermer la description">&minus;</button>
+          </div>
+        </article>
+
+        <article class="pcard" data-project="labor">
+          <img class="pcard-img" src="PLACEHOLDER_IMG_LABOR" data-i18n-alt="labor.imgAlt" alt="Capture de la plateforme Labor" />
+          <div class="pcard-body">
+            <span class="pcard-domain">FRONT-END</span>
+            <h3 class="pcard-name" data-i18n="labor.name">Labor</h3>
+            <span class="pcard-stack">React · TypeScript · Vite</span>
+            <p class="pcard-summary" data-i18n="labor.summary">Plateforme de mise en relation entre agriculteurs et travailleurs saisonniers. Projet de groupe réalisé en stage, où j'étais lead front.</p>
+            <div class="pcard-footer">
+              <a class="pcard-link" href="https://github.com/aymericpbdev/Project-Labor" target="_blank" rel="noopener" data-i18n="projects.source">Code source</a>
+              <button type="button" class="pcard-more" data-i18n-aria-label="projects.ariaOpen" aria-label="Voir la description">+</button>
+            </div>
+          </div>
+          <div class="pcard-panel">
+            <h3 class="pcard-panel-name" data-i18n="labor.name">Labor</h3>
+            <div class="pcard-desc">
+              <p data-i18n="labor.p1">Labor met en relation des agriculteurs et des travailleurs saisonniers, en s'adressant à l'ensemble de l'espace francophone plutôt qu'au seul marché français. Le projet a été mené en équipe pendant un stage de deux mois, avec trois développeurs sur la partie front.</p>
+              <p data-i18n="labor.p2">Comme lead front, j'ai posé l'identité visuelle du projet : logo et charte graphique v1, utilisée comme référence par l'équipe. Côté code, j'ai défini l'architecture front, les conventions et le design system en tokens CSS, puis développé une partie des tickets : routing, mocks MSW, composants, layouts et landing page.</p>
+              <p data-i18n="labor.p3">Le projet s'est arrêté à la fin du stage, aux deux tiers du MVP maquetté. Fondations, design system et landing page sont en place ; les espaces agriculteur et saisonnier n'ont pas été terminés.</p>
+            </div>
+            <button type="button" class="pcard-less" data-i18n-aria-label="projects.ariaClose" aria-label="Fermer la description">&minus;</button>
+          </div>
+        </article>
+
+        <article class="pcard" data-project="portfolio">
+          <img class="pcard-img" src="PLACEHOLDER_IMG_PORTFOLIO" data-i18n-alt="portfolio.imgAlt" alt="Capture de ce portfolio" />
+          <div class="pcard-body">
+            <span class="pcard-domain">FRONT-END</span>
+            <h3 class="pcard-name" data-i18n="portfolio.name">Portfolio</h3>
+            <span class="pcard-stack">HTML · CSS · JavaScript</span>
+            <p class="pcard-summary" data-i18n="portfolio.summary">Portfolio personnel en HTML, CSS et JavaScript vanilla. Vitrine de mon travail autant que terrain d'expérimentation.</p>
+            <div class="pcard-footer">
+              <a class="pcard-link" href="https://github.com/morgandevmh/portfolio-v2" target="_blank" rel="noopener" data-i18n="projects.source">Code source</a>
+              <button type="button" class="pcard-more" data-i18n-aria-label="projects.ariaOpen" aria-label="Voir la description">+</button>
+            </div>
+          </div>
+          <div class="pcard-panel">
+            <h3 class="pcard-panel-name" data-i18n="portfolio.name">Portfolio</h3>
+            <div class="pcard-desc">
+              <p data-i18n="portfolio.p1">Ce site présente mes projets et en est un lui-même : le code est public, et c'est là que j'expérimente en CSS et JavaScript natifs.</p>
+              <p data-i18n="portfolio.p2">J'ai choisi de l'écrire sans framework. Pour une page vitrine, HTML, CSS et JavaScript me suffisaient, et travailler sans couche d'abstraction m'oblige à comprendre ce que je manipule. Avec AGL, ce sont les deux projets de ma première année que je compte faire vivre : l'un pour apprendre un écosystème complet, l'autre pour revenir aux fondamentaux.</p>
+              <p data-i18n="portfolio.p3">Je l'envisage comme une vitrine amenée à évoluer au fil de mes envies de tester de nouvelles choses. Le code est organisé dans cet esprit : styles centralisés en variables CSS, et un JavaScript découpé en modules autonomes, chacun se désactivant proprement si la section qu'il pilote n'est pas là.</p>
+            </div>
+            <button type="button" class="pcard-less" data-i18n-aria-label="projects.ariaClose" aria-label="Fermer la description">&minus;</button>
+          </div>
+        </article>
+
+      </div>
     </section>
 
-    <!-- SKILLS -->
+    <!-- ==================================================== SKILLS ====== -->
     <section id="s-skills">
-      <h2>Skills</h2>
+      <h2 data-i18n="skills.heading">Skills</h2>
+
+      <p class="skills-legend">
+        <span class="legend-item legend-practiced" data-i18n="skills.practiced">Utilisées en projet</span>
+        <span class="legend-item legend-learning"  data-i18n="skills.learning">En cours d'apprentissage</span>
+      </p>
+
       <div class="skills-list">
-        <div class="skills-card card-R">
-          <img src="icon/skills-icon/html-5-svgrepo-com.svg" alt="logo HTML5" />HTML5
-        </div>
-        <div class="skills-card card-L">
-          <img src="icon/skills-icon/css-svgrepo-com.svg" alt="logo CSS3" />CSS3
-        </div>
-        <div class="skills-card card-R">
-          <img src="icon/skills-icon/javascript-svgrepo-com.svg" alt="logo JavaScript" />JavaScript
-        </div>
-        <div class="skills-card card-L">
-            <img src="icon/skills-icon/typescript-official-svgrepo-com.svg" alt="logo TypeScript" />TypeScript
-        </div>
-        <div class="skills-card card-R">
-          <img src="icon/skills-icon/react-svgrepo-com.svg" alt="logo React" />REACT
-        </div>
-        <div class="skills-card card-L">
-            <img src="icon/skills-icon/Symbol.svg" alt="logo NextJS" />NextJS
-        </div>
-        <div class="skills-card card-R ">
-          <img src="icon/skills-icon/node-js-svgrepo-com.svg" alt="logo Node.js" />Node JS
-        </div>
-        <div class="skills-card card-R">
-            <img src="icon/skills-icon/tailwindcss-icon-svgrepo-com.svg" alt="logo TailwindCSS" />TailwindCSS
-        </div>
-        <div class="skills-card card-L ">
-          <img src="icon/skills-icon/redux-svgrepo-com.svg" alt="logo Redux" />Redux
-        </div>
-        <div class="skills-card card-R ">
-          <img src="icon/skills-icon/mongodb-svgrepo-com.svg" alt="logo MongoDB" />MongoDB
-        </div>
-        <div class="skills-card card-L">
-            <img src="icon/skills-icon/postgresql-svgrepo-com.svg" alt="logo postgreeSQL" />postgreSQL
-        </div>
-        <div class="skills-card card-R">
-            <img src="icon/skills-icon/light-prisma-svgrepo-com.svg" alt="logo Prisma" />PrismaORM
-        </div>
-        <div class="skills-card card-L">
-          <img src="icon/skills-icon/git-svgrepo-com.svg" alt="logo Git" />Git
-        </div>
-        <div class="skills-card card-R">
-          <img src="icon/skills-icon/github_logo_icon_229278.svg" alt="logo GitHub" />GitHub
-        </div>
-        <div class="skills-card card-L">
-            <img src="icon/skills-icon/figma-svgrepo-com.svg" alt="logo Figma" />Figma
-        </div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/html-5-svgrepo-com.svg" alt="" aria-hidden="true" />HTML5</div>
+        <div class="skills-card card-L"><img src="icon/skills-icon/css-svgrepo-com.svg" alt="" aria-hidden="true" />CSS3</div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/javascript-svgrepo-com.svg" alt="" aria-hidden="true" />JavaScript</div>
+        <div class="skills-card card-L"><img src="icon/skills-icon/typescript-official-svgrepo-com.svg" alt="" aria-hidden="true" />TypeScript</div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/react-svgrepo-com.svg" alt="" aria-hidden="true" />React</div>
+        <div class="skills-card card-L"><img src="icon/skills-icon/Symbol.svg" alt="" aria-hidden="true" />Next.js</div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/node-js-svgrepo-com.svg" alt="" aria-hidden="true" />Node.js</div>
+        <div class="skills-card card-L"><img src="icon/skills-icon/tailwindcss-icon-svgrepo-com.svg" alt="" aria-hidden="true" />TailwindCSS</div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/postgresql-svgrepo-com.svg" alt="" aria-hidden="true" />PostgreSQL</div>
+        <div class="skills-card card-L"><img src="icon/skills-icon/light-prisma-svgrepo-com.svg" alt="" aria-hidden="true" />Prisma</div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/git-svgrepo-com.svg" alt="" aria-hidden="true" />Git</div>
+        <div class="skills-card card-L"><img src="icon/skills-icon/github_logo_icon_229278.svg" alt="" aria-hidden="true" />GitHub</div>
+        <div class="skills-card card-R"><img src="icon/skills-icon/figma-svgrepo-com.svg" alt="" aria-hidden="true" />Figma</div>
 
-      </div>
-    </section>
-
-    <!-- CERTIFICATIONS  -->
-    <section id="s-certifs" class="s-certifs">
-      <h2>Certifications</h2>
-      <div class="slider-container">
-        <div class="slider">
-          <div class="carousel" style="--quantity: 5">
-            <div class="item" style="--position: 1">
-              <img src="img/white-3drender-5.jpg" alt="" />
-              <a href="#"><h4>à venir</h4></a>
-            </div>
-            <div class="item" style="--position: 2">
-              <img src="img/white-3drender-2.jpg" alt="" />
-              <a href="#"><h4>à venir</h4></a>
-            </div>
-            <div class="item" style="--position: 3">
-              <img src="img/white-3drender-1jpg.jpg" alt="" />
-              <a href="#"><h4>à venir</h4></a>
-            </div>
-            <div class="item" style="--position: 4">
-              <img src="img/white-3drender-4.jpg" alt="" />
-              <a href="#"><h4>Professional Certification in Web Development </h4></a>
-            </div>
-            <div class="item" style="--position: 5">
-              <img src="img/certif-fcc-rwd.png" alt="Certification Responsive Web Design" />
-              <a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design" target="_blank" rel="noopener">
-                <h4>Responsive Web Design</h4>
-              </a>
-            </div>
-          </div>
+        <div class="skills-card card-L is-learning" data-i18n-title="skills.learning" title="En cours d'apprentissage">
+          <img src="icon/skills-icon/redux-svgrepo-com.svg" alt="" aria-hidden="true" />Redux
+        </div>
+        <div class="skills-card card-R is-learning" data-i18n-title="skills.learning" title="En cours d'apprentissage">
+          <img src="icon/skills-icon/mongodb-svgrepo-com.svg" alt="" aria-hidden="true" />MongoDB
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- ====================================================== FOOTER ====== -->
   <footer id="contact">
     <div class="footer-inner">
-      <p class="footer-note">
-        This is the first version of my portfolio, which is bound to evolve over time as my skills develop.
-      </p>
+      <!-- Ligne a retirer quand l'alternance est trouvee (vider la cle footer.cta) -->
+      <p class="footer-cta" data-i18n="footer.cta">Une alternance à proposer, ou simplement une question ? Écrivez-moi.</p>
 
       <div class="footer-contact">
-        <span class="footer-label">Get in touch</span>
+        <span class="footer-label" data-i18n="footer.label">Me contacter</span>
+
         <div class="footer-mail">
-          <a href="mailto:EMAIL">EMAIL</a>
-          <button type="button" class="footer-copy" data-mail="TON_EMAIL" aria-label="Copier l'adresse email">copy</button>
+          <a href="mailto:PLACEHOLDER_EMAIL">PLACEHOLDER_EMAIL</a>
+          <button type="button" class="footer-copy"
+                  data-mail="PLACEHOLDER_EMAIL"
+                  data-i18n="footer.copy"
+                  data-i18n-aria-label="footer.ariaCopy"
+                  aria-label="Copier l'adresse email">copier</button>
         </div>
+
+        <a class="footer-cv" href="PLACEHOLDER_CV_PDF" download data-i18n="footer.cv">Télécharger mon CV</a>
+
         <ul class="footer-links">
-          <li><a href="https://github.com/PSEUDO" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/PROFIL" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/morgandevmh" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="PLACEHOLDER_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.freecodecamp.org/certification/morgandevmh/responsive-web-design" target="_blank" rel="noopener">freeCodeCamp</a></li>
         </ul>
       </div>
     </div>
+
+    <p class="footer-signature">© 2026 Morgan Hassouna</p>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
+
+<!--
+  ==========================================================================
+  NOTES D'INTEGRATION
+  --------------------------------------------------------------------------
+  PLACEHOLDERS a remplir avant deploiement (Ctrl+F "PLACEHOLDER") :
+    PLACEHOLDER_EMAIL         x3 (mailto, texte, data-mail)
+    PLACEHOLDER_LINKEDIN
+    PLACEHOLDER_CV_PDF
+    PLACEHOLDER_IMG_PORTRAIT
+    PLACEHOLDER_IMG_AGL       x2 (desktop + mobile)
+    PLACEHOLDER_IMG_LABOR     x2
+    PLACEHOLDER_IMG_PORTFOLIO x2
+    PLACEHOLDER_OG_IMAGE      (phase 6)
+    PLACEHOLDER_FAVICON
+
+  CONVENTION data-i18n :
+    data-i18n="cle"            -> remplace textContent
+    data-i18n-alt="cle"        -> remplace l'attribut alt
+    data-i18n-title="cle"      -> remplace l'attribut title
+    data-i18n-aria-label="cle" -> remplace l'attribut aria-label
+    Une cle absente du dictionnaire laisse le texte en place.
+
+  DUPLICATION ASSUMEE : chaque projet apparait 2x dans ce fichier
+  (panneau desktop + carte mobile) et 2x dans content.js (fr + en).
+  Toute modification de texte doit etre reportee aux 4 endroits.
+  Seuil de bascule vers une generation JS : environ 5 projets.
+
+  CSS A AJOUTER / MODIFIER (phases 2 et 3) :
+    - .hero-identity / .hero-role / .hero-status : nouvelle hierarchie
+    - .lang-switch / .lang-btn : toggle de langue
+    - .project-panel : les 3 panneaux empiles, seul .is-active visible
+    - .project-badges / .project-status / .project-stack / .project-links
+    - .pcard-summary
+    - .skills-legend / .is-learning
+    - .project-right { height: calc((90vh * 3) + (10vh * 2)) }  <- 3 projets
+    - scroll-margin-top sur les sections (navbar fixe)
+    - supprimer la section 9 (certifications)
+  ==========================================================================
+-->
