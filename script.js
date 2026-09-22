@@ -7,10 +7,7 @@
      3. Projects mobile (carrousel .pcard)
      4. Scroll couleur par section
      5. Footer copie de l'email
-   --------------------------------------------------------------------------
-   MAJ : modules 2 et 3 reecrits (le contenu est dans le HTML, le JS ne fait
-         plus que deplacer des classes). Carrousel Certifications supprime.
-         i18n branche (voir i18n.js).
+     6. Skills — vagues en arriere-plan
    ========================================================================== */
 
    import { initI18n, t } from './i18n.js';
@@ -69,7 +66,7 @@
    
    
      /* 2. PROJECTS desktop ------------------------------------------------------------------------------------------------------
-        [MAJ] Les 3 panneaux sont dans le HTML. Quand une card de gauche croise
+        Les 3 panneaux sont dans le HTML. Quand une card de gauche croise
         la ligne mediane horizontale de l'ecran, on active le panneau qui porte
         le meme data-project. Aucun texte n'est ecrit par le JS.
         ------------------------------------------------------------------------------------------------------------------------- */
@@ -98,7 +95,7 @@
    
    
      /* 3. PROJECTS mobile -------------------------------------------------------------------------------------------------------
-        [MAJ] Les cartes existent deja dans le HTML : plus de generation.
+        Les cartes existent deja dans le HTML : plus de generation.
         On branche les boutons +/- et on detecte la carte centrale.
         ------------------------------------------------------------------------------------------------------------------------- */
      (function initProjectsCarousel() {
@@ -177,7 +174,7 @@
    
    
      /* 5. FOOTER copie de l'email -----------------------------------------------------------------------------------------------
-        [MAJ] Libelles "copie / copier" lus dans le dictionnaire de la langue
+        Libelles "copie / copier" lus dans le dictionnaire de la langue
         courante. Le texte de retour est relu au moment du retour : si la langue
         change pendant les 1,6 s, le bouton revient dans la bonne langue.
         ------------------------------------------------------------------------------------------------------------------------- */
@@ -199,6 +196,103 @@
            // echec silencieux : l'adresse reste visible et selectionnable
          }
        });
+     })();
+   
+   
+     /* 6. SKILLS vagues en arriere-plan -------------------------------------------------------------------------------------------
+        Reglages lus dans les variables CSS --waves-* (styles.css, section 1).
+        L'animation ne tourne que quand la section est visible a l'ecran.
+        Reduction des mouvements activee : une seule image fixe est dessinee.
+        ------------------------------------------------------------------------------------------------------------------------- */
+     (function initSkillsWaves() {
+       const section = document.getElementById('s-skills');
+       const canvas  = section?.querySelector('.skills-waves');
+       const ctx     = canvas?.getContext('2d');
+       if (!section || !canvas || !ctx) return;
+   
+       const styles = getComputedStyle(document.documentElement);
+       const read = (name, fallback) => {
+         const value = parseFloat(styles.getPropertyValue(name));
+         return Number.isFinite(value) ? value : fallback;
+       };
+   
+       const count     = Math.max(1, Math.round(read('--waves-count', 6)));
+       const amplitude = read('--waves-amplitude', 1);
+       const speed     = read('--waves-speed', 0.5);
+       const opacity   = read('--waves-opacity', 0.4);
+       const colors    = ['--color-rainbow-1', '--color-rainbow-2', '--color-rainbow-3']
+         .map((name) => styles.getPropertyValue(name).trim());
+   
+       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+   
+       // Chaque ligne a sa frequence, son sens, sa phase et sa "respiration"
+       // d'amplitude : valeurs derivees de l'index, donc stables d'un chargement a l'autre.
+       const waves = Array.from({ length: count }, (_, i) => ({
+         freq:    1.2 + i * 0.55 + (i % 2) * 0.3,          // ondulations sur la largeur
+         drift:   (0.35 + ((i * 37) % 10) / 14) * (i % 2 ? -1 : 1),
+         phase:   i * 1.7,
+         breathe: 0.25 + ((i * 53) % 10) / 30,             // vitesse de variation d'amplitude
+         color:   colors[i % colors.length],
+       }));
+   
+       let width = 0, height = 0, time = 0, last = 0, rafId = null;
+   
+       const draw = () => {
+         ctx.clearRect(0, 0, width, height);
+         const mid = height / 2;
+         const maxAmp = height * 0.45 * amplitude;
+   
+         ctx.lineWidth   = 1.5;
+         ctx.globalAlpha = opacity;
+   
+         waves.forEach((w) => {
+           const pulse = 0.55 + 0.45 * Math.sin(time * w.breathe + w.phase);
+           ctx.beginPath();
+           for (let x = 0; x <= width; x += 4) {
+             const u = x / width;
+             const envelope = Math.pow(Math.sin(Math.PI * u), 1.6);   // resserre aux extremites
+             const y = mid + maxAmp * pulse * envelope
+                     * Math.sin(u * Math.PI * 2 * w.freq + time * w.drift * 2 + w.phase);
+             if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+           }
+           ctx.strokeStyle = w.color;
+           ctx.stroke();
+         });
+       };
+   
+       const resize = () => {
+         const dpr = window.devicePixelRatio || 1;
+         width  = section.clientWidth;
+         height = section.clientHeight;
+         canvas.width  = Math.round(width * dpr);
+         canvas.height = Math.round(height * dpr);
+         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+         draw();
+       };
+   
+       const frame = (now) => {
+         const dt = Math.min((now - last) / 1000, 0.05);   // borne les gros ecarts (onglet en arriere-plan)
+         last = now;
+         time += dt * speed;
+         draw();
+         rafId = requestAnimationFrame(frame);
+       };
+   
+       const start = () => {
+         if (rafId || reduced) return;
+         last = performance.now();
+         rafId = requestAnimationFrame(frame);
+       };
+   
+       const stop = () => {
+         if (rafId) cancelAnimationFrame(rafId);
+         rafId = null;
+       };
+   
+       new ResizeObserver(resize).observe(section);
+       new IntersectionObserver(([entry]) => {
+         if (entry.isIntersecting) start(); else stop();
+       }).observe(section);
      })();
    
    });

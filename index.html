@@ -64,9 +64,18 @@
       <h2 data-i18n="about.heading">À propos</h2>
 
       <div class="about-content">
-        <img src="PLACEHOLDER_IMG_PORTRAIT"
-             data-i18n-alt="about.imageAlt"
-             alt="Portrait de Morgan Hassouna" />
+        <div class="about-photo">
+          <img src="PLACEHOLDER_IMG_PORTRAIT"
+               data-i18n-alt="about.imageAlt"
+               alt="Portrait de Morgan Hassouna" />
+
+          <!-- Anneaux decoratifs : reglages dans styles.css, section 1 (--ring-*) -->
+          <svg class="about-rings" aria-hidden="true" focusable="false">
+            <circle class="ring ring-1" cx="50%" cy="50%" r="41.9%" pathLength="100" />
+            <circle class="ring ring-2" cx="50%" cy="50%" r="44.3%" pathLength="100" />
+            <circle class="ring ring-3" cx="50%" cy="50%" r="46.7%" pathLength="100" />
+          </svg>
+        </div>
 
         <div class="about-text">
           <p data-i18n="about.p1">J'ai mis du temps à trouver ce que je voulais faire. Des études en droit, puis en langues étrangères, plusieurs années de travail alimentaire en attendant — rien qui me projetait vraiment. La programmation, je l'ai croisée par hasard, en suivant des cours gratuits et des vidéos. Ça a pris, et je me suis inscrit à la formation.</p>
@@ -241,6 +250,9 @@
 
     <!-- ==================================================== SKILLS ====== -->
     <section id="s-skills">
+      <!-- Vagues decoratives : reglages dans styles.css, section 1 (--waves-*) -->
+      <canvas class="skills-waves" aria-hidden="true"></canvas>
+
       <h2 data-i18n="skills.heading">Skills</h2>
 
       <p class="skills-legend">
