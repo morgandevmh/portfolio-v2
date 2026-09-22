@@ -82,7 +82,7 @@
   --ring-speed:   1;      /* multiplicateur : 2 = deux fois plus vite, 0.5 = deux fois plus lent */
 
   /* Vagues en arriere-plan (Skills) : lues par script.js au chargement */
-  --waves-count:     5;     /* nombre de lignes */
+  --waves-count:     4;     /* nombre de lignes */
   --waves-amplitude: 1;     /* 1 = 100 % : hauteur max des vagues, de 0 a 1 */
   --waves-speed:     0.5;   /* multiplicateur : 1 = vitesse de reference */
   --waves-opacity:   0.3;   /* intensite : 0 = invisible, 1 = couleur pleine */
