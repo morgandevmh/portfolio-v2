@@ -90,6 +90,9 @@
        'skills.learning':   "En cours d'apprentissage",
    
        /* Footer */
+       'notfound.text': "Cette page n'existe pas, ou n'existe plus.",
+       'notfound.back': "Retour à l'accueil",
+   
        'footer.cta':      "Une alternance à proposer, ou simplement une question ? Écrivez-moi.",
        'footer.label':    "Me contacter",
        'footer.copy':     "copier",
@@ -155,6 +158,9 @@
        'skills.heading':   "Skills",
        'skills.practiced': "Used in projects",
        'skills.learning':  "Currently learning",
+   
+       'notfound.text': "This page doesn't exist, or no longer does.",
+       'notfound.back': "Back to home",
    
        'footer.cta':      "An apprenticeship to offer, or just a question? Get in touch.",
        'footer.label':    "Get in touch",

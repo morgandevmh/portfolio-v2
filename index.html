@@ -65,7 +65,9 @@
 
       <div class="about-content">
         <div class="about-photo">
-          <img src="PLACEHOLDER_IMG_PORTRAIT"
+          <img src="img/ctn/pdp-about.webp"
+               width="600" height="638"
+               loading="lazy" decoding="async"
                data-i18n-alt="about.imageAlt"
                alt="Portrait de Morgan Hassouna" />
 
@@ -103,17 +105,17 @@
 
         <div class="project-left">
           <article class="project-card" data-project="agl">
-            <img src="PLACEHOLDER_IMG_AGL" data-i18n-alt="agl.imgAlt" alt="Capture de l'application AGL" />
+            <img src="img/ctn/screen-agl.webp" width="1440" height="725" loading="lazy" decoding="async" data-i18n-alt="agl.imgAlt" alt="Capture de l'application AGL" />
             <h3 data-i18n="agl.name">AGL</h3>
           </article>
 
           <article class="project-card" data-project="labor">
-            <img src="PLACEHOLDER_IMG_LABOR" data-i18n-alt="labor.imgAlt" alt="Capture de la plateforme Labor" />
+            <img src="img/ctn/screen-labor.webp" width="1440" height="726" loading="lazy" decoding="async" data-i18n-alt="labor.imgAlt" alt="Capture de la plateforme Labor" />
             <h3 data-i18n="labor.name">Labor</h3>
           </article>
 
           <article class="project-card" data-project="portfolio">
-            <img src="PLACEHOLDER_IMG_PORTFOLIO" data-i18n-alt="portfolio.imgAlt" alt="Capture de ce portfolio" />
+            <img src="img/ctn/screen-portfolio.webp" width="1440" height="732" loading="lazy" decoding="async" data-i18n-alt="portfolio.imgAlt" alt="Capture de ce portfolio" />
             <h3 data-i18n="portfolio.name">Portfolio</h3>
           </article>
         </div>
@@ -177,7 +179,7 @@
       <div class="projects-carousel">
 
         <article class="pcard" data-project="agl">
-          <img class="pcard-img" src="PLACEHOLDER_IMG_AGL" data-i18n-alt="agl.imgAlt" alt="Capture de l'application AGL" />
+          <img class="pcard-img" src="img/ctn/screen-agl.webp" width="1440" height="725" loading="lazy" decoding="async" data-i18n-alt="agl.imgAlt" alt="Capture de l'application AGL" />
           <div class="pcard-body">
             <span class="pcard-domain">FULL-STACK</span>
             <h3 class="pcard-name" data-i18n="agl.name">AGL</h3>
@@ -200,7 +202,7 @@
         </article>
 
         <article class="pcard" data-project="labor">
-          <img class="pcard-img" src="PLACEHOLDER_IMG_LABOR" data-i18n-alt="labor.imgAlt" alt="Capture de la plateforme Labor" />
+          <img class="pcard-img" src="img/ctn/screen-labor.webp" width="1440" height="726" loading="lazy" decoding="async" data-i18n-alt="labor.imgAlt" alt="Capture de la plateforme Labor" />
           <div class="pcard-body">
             <span class="pcard-domain">FRONT-END</span>
             <h3 class="pcard-name" data-i18n="labor.name">Labor</h3>
@@ -223,7 +225,7 @@
         </article>
 
         <article class="pcard" data-project="portfolio">
-          <img class="pcard-img" src="PLACEHOLDER_IMG_PORTFOLIO" data-i18n-alt="portfolio.imgAlt" alt="Capture de ce portfolio" />
+          <img class="pcard-img" src="img/ctn/screen-portfolio.webp" width="1440" height="732" loading="lazy" decoding="async" data-i18n-alt="portfolio.imgAlt" alt="Capture de ce portfolio" />
           <div class="pcard-body">
             <span class="pcard-domain">FRONT-END</span>
             <h3 class="pcard-name" data-i18n="portfolio.name">Portfolio</h3>
@@ -329,12 +331,12 @@
     PLACEHOLDER_EMAIL         x3 (mailto, texte, data-mail)
     PLACEHOLDER_LINKEDIN
     PLACEHOLDER_CV_PDF
-    PLACEHOLDER_IMG_PORTRAIT
-    PLACEHOLDER_IMG_AGL       x2 (desktop + mobile)
-    PLACEHOLDER_IMG_LABOR     x2
-    PLACEHOLDER_IMG_PORTFOLIO x2
     PLACEHOLDER_OG_IMAGE      (phase 6)
     PLACEHOLDER_FAVICON
+
+  IMAGES : les attributs width/height doivent correspondre aux dimensions
+  reelles des fichiers, sinon la reservation d'espace est fausse et le
+  layout saute au chargement. Captures projets en 2:1, portrait carre.
 
   CONVENTION data-i18n :
     data-i18n="cle"            -> remplace textContent
@@ -348,15 +350,7 @@
   Toute modification de texte doit etre reportee aux 4 endroits.
   Seuil de bascule vers une generation JS : environ 5 projets.
 
-  CSS A AJOUTER / MODIFIER (phases 2 et 3) :
-    - .hero-identity / .hero-role / .hero-status : nouvelle hierarchie
-    - .lang-switch / .lang-btn : toggle de langue
-    - .project-panel : les 3 panneaux empiles, seul .is-active visible
-    - .project-badges / .project-status / .project-stack / .project-links
-    - .pcard-summary
-    - .skills-legend / .is-learning
-    - .project-right { height: calc((90vh * 3) + (10vh * 2)) }  <- 3 projets
-    - scroll-margin-top sur les sections (navbar fixe)
-    - supprimer la section 9 (certifications)
+  LIMITE DE TEXTE : 780 caracteres par projet pour les paragraphes de
+  description cumules (detail dans styles.css, section 6).
   ==========================================================================
 -->

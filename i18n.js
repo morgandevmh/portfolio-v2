@@ -114,8 +114,8 @@
    /* --- Initialisation ---------------------------------------------------- */
    
    export function initI18n() {
+     // Pas de toggle sur la page 404 : la detection s'applique quand meme
      const buttons = document.querySelectorAll('.lang-btn[data-lang]');
-     if (!buttons.length) return;
    
      buttons.forEach((btn) => {
        btn.addEventListener('click', () => {

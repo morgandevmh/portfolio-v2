@@ -16,6 +16,7 @@
      12. Responsive — <= 900px (projets : bascule vers le carrousel)
      13. Responsive — <= 600px
      14. Accessibilite — prefers-reduced-motion
+     15. Page 404
    ========================================================================== */
 
 
@@ -76,6 +77,11 @@
   --rainbow-count:     25;
   --rainbow-animation: 45s;
 
+  /* Projets : espace ajoute en haut et en bas de la colonne de gauche pour que
+     la premiere et la derniere carte se rapprochent du centre du panneau sticky.
+     Valeur approchee : l'ecart exact varie legerement selon la taille d'ecran. */
+  --project-align-offset: 16vh;
+
   /* Anneaux autour de la photo (About) */
   --ring-width:   2px;    /* epaisseur du trait */
   --ring-opacity: 0.4;    /* intensite : 0 = invisible, 1 = couleur pleine */
@@ -85,7 +91,7 @@
   --waves-count:     4;     /* nombre de lignes */
   --waves-amplitude: 1;     /* 1 = 100 % : hauteur max des vagues, de 0 a 1 */
   --waves-speed:     0.5;   /* multiplicateur : 1 = vitesse de reference */
-  --waves-opacity:   0.3;   /* intensite : 0 = invisible, 1 = couleur pleine */
+  --waves-opacity:   0.4;   /* intensite : 0 = invisible, 1 = couleur pleine */
 
   /* Navbar */
   --navbar-h-mobile: 60px;
@@ -109,6 +115,12 @@ body {
   color: var(--color-text-primary);
   font-family: var(--font-text);
   transition: background-color var(--transition-slow), color var(--transition-fast);
+}
+
+/* Contour de focus clavier : le contour natif est quasi invisible sur fond noir */
+:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
 }
 
 /* Les titres de section ne passent plus sous la navbar fixe au clic sur une ancre */
@@ -452,12 +464,14 @@ section[id^="s-"] {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 10vh;
+  gap: 8vh;
+  padding-block: var(--project-align-offset);
 }
 
-/* La card contient maintenant une image et un titre */
+/* La card se cale sur l'image : captures en 2:1, aucun rognage.
+   Une seule image par projet sert au desktop et au mobile. */
 .project-card {
-  height: 90vh;
+  position: relative;
   background-color: var(--color-bg-elevated);
   border: var(--border-1);
   border-radius: var(--radius-sm);
@@ -467,15 +481,23 @@ section[id^="s-"] {
 }
 
 .project-card img {
-  flex: 1 1 auto;
-  min-height: 0;
+  flex: none;
+  aspect-ratio: 2 / 1;
   width: 100%;
+  height: auto;          /* neutralise l'attribut height= de la balise, qui
+                            desactiverait aspect-ratio */
   display: block;
   object-fit: cover;
 }
 
+/* Titre en surimpression, sur un degrade qui le detache de l'image */
 .project-card h3 {
-  padding: var(--space-sm) var(--space-md);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 48px var(--space-md) var(--space-sm);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
   font-family: var(--font-title);
   font-size: var(--font-size-h3);
   font-weight: 400;
@@ -609,8 +631,7 @@ section[id^="s-"] {
 .pcard {
   position: relative;
   flex: 0 0 80vw;
-  height: 75vh;
-  max-height: 520px;
+  height: auto;
   scroll-snap-align: center;
   background: var(--color-bg-elevated);
   border: var(--border-1);
@@ -628,11 +649,12 @@ section[id^="s-"] {
   opacity: 1;
 }
 
-/* Vraie <img> desormais, et 45% au lieu de 60% pour laisser la place au resume */
+/* Meme rapport 2:1 que sur desktop : une seule capture par projet */
 .pcard-img {
-  flex: 0 0 45%;
-  min-height: 0;
+  flex: none;
+  aspect-ratio: 2 / 1;
   width: 100%;
+  height: auto;
   display: block;
   object-fit: cover;
 }
@@ -745,7 +767,7 @@ section[id^="s-"] {
 #s-skills {
   position: relative;
   overflow: hidden;
-  min-height: 90vh;
+  min-height: 80vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -1170,4 +1192,42 @@ footer {
   #s-skills .skills-card {
     transition: none;
   }
+}
+
+
+/* 15. PAGE 404 --------------------------------------------------------------------------------------------------------------- */
+.notfound {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  text-align: center;
+}
+
+.notfound-code {
+  font-family: var(--font-title);
+  font-size: clamp(4rem, 18vw, 9rem);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.notfound-text {
+  max-width: 40ch;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.notfound-back {
+  margin-top: var(--space-md);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
 }
