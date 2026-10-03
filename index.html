@@ -18,6 +18,10 @@
   <link rel="icon" href="favicon.ico" sizes="32x32" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <!-- Preload des deux polices du premier ecran : evite le flash de police de secours -->
+  <link rel="preload" href="fonts/space-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -312,7 +316,7 @@
 
         <ul class="footer-links">
           <li><a href="https://github.com/morgandevmh" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="www.linkedin.com/in/morgan-hassouna" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="PLACEHOLDER_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a></li>
         </ul>
       </div>
     </div>
@@ -329,6 +333,7 @@
   NOTES D'INTEGRATION
   --------------------------------------------------------------------------
   PLACEHOLDERS a remplir avant deploiement (Ctrl+F "PLACEHOLDER") :
+    PLACEHOLDER_LINKEDIN
     PLACEHOLDER_CV_PDF
     PLACEHOLDER_OG_IMAGE      (phase 6)
 

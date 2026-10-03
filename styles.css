@@ -2,6 +2,7 @@
    PORTFOLIO — Morgan Hassouna
    --------------------------------------------------------------------------
    SOMMAIRE
+     0.  Polices (fichiers locaux)
      1.  Variables
      2.  Reset & base
      3.  Navbar (+ toggle de langue)
@@ -20,1214 +21,1255 @@
    ========================================================================== */
 
 
-/* 1. VARIABLES ------------------------------------------------------------------------------------------------------------ */
-:root {
-  /* Palette constante */
-  --palette-black: #000;
-  --palette-white: #ffffff;
-
-  /* Couleurs */
-  --color-bg-page:        var(--palette-black);
-  --color-bg-elevated:    #1b1a1a;
-  --color-bg-glass:       rgba(255, 255, 255, 0.05);
-  --color-bg-card:        #0d0d0d;   /* rendu de --color-bg-glass sur fond noir, mais opaque */
-  --color-text-primary:   var(--palette-white);
-  --color-text-secondary: #b8b8b8;
-  --color-border:         rgba(90, 90, 90, 1);
-  --color-accent:         #3fb3bd;   /* provisoire (phase 6) : 6.9:1 sur bg-elevated, 8.4:1 sur noir */
-
-  /* Couleurs Rainbow (hero) */
-  --color-rainbow-1: rgb(232, 121, 249);
-  --color-rainbow-2: rgb(96, 165, 250);
-  --color-rainbow-3: rgb(94, 234, 212);
-
-  /* Typographie */
-  --font-title:      Georgia, "Times New Roman", serif;
-  --font-text:       Georgia, "Times New Roman", serif;
-  --font-size-h1:    clamp(2.75rem, 10vw, 6rem);
-  --font-size-h2:    2.5rem;
-  --font-size-h3:    1.8rem;
-  --font-size-body:  1rem;
-  --font-size-small: 0.8rem;
-
-  /* Espacements */
-  --space-xs: 8px;
-  --space-sm: 16px;
-  --space-md: 32px;
-  --space-lg: 64px;
-  --space-xl: 128px;
-
-  /* Effets */
-  --blur-glass:  blur(5px);
-  --radius-sm:   8px;
-  --radius-md:   15px;
-  --radius-lg:   20px;
-  --radius-pill: 40px;
-  --border-1:    solid 1px var(--color-border);
-
-  /* Animations */
-  --transition-fast: 0.2s ease;
-  --transition-slow: 1.5s ease;
-
-  /* Z-index */
-  --z-content: 10;
-  --z-navbar:  50;
-
-  /* Hero Rainbow: lu par script.js au chargement */
-  --rainbow-count:     25;
-  --rainbow-animation: 45s;
-
-  /* Projets : espace ajoute en haut et en bas de la colonne de gauche pour que
-     la premiere et la derniere carte se rapprochent du centre du panneau sticky.
-     Valeur approchee : l'ecart exact varie legerement selon la taille d'ecran. */
-  --project-align-offset: 16vh;
-
-  /* Anneaux autour de la photo (About) */
-  --ring-width:   2px;    /* epaisseur du trait */
-  --ring-opacity: 0.4;    /* intensite : 0 = invisible, 1 = couleur pleine */
-  --ring-speed:   1;      /* multiplicateur : 2 = deux fois plus vite, 0.5 = deux fois plus lent */
-
-  /* Vagues en arriere-plan (Skills) : lues par script.js au chargement */
-  --waves-count:     4;     /* nombre de lignes */
-  --waves-amplitude: 1;     /* 1 = 100 % : hauteur max des vagues, de 0 a 1 */
-  --waves-speed:     0.5;   /* multiplicateur : 1 = vitesse de reference */
-  --waves-opacity:   0.4;   /* intensite : 0 = invisible, 1 = couleur pleine */
-
-  /* Navbar */
-  --navbar-h-mobile: 60px;
-  --navbar-offset:   90px;   /* hauteur navbar desktop + marge, pour les ancres */
-}
-
-
-/* 2. RESET & BASE ----------------------------------------------------------------------------------------------------------- */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-bg-page);
-  color: var(--color-text-primary);
-  font-family: var(--font-text);
-  transition: background-color var(--transition-slow), color var(--transition-fast);
-}
-
-/* Contour de focus clavier : le contour natif est quasi invisible sur fond noir */
-:focus-visible {
-  outline: 2px solid var(--color-text-primary);
-  outline-offset: 3px;
-}
-
-/* Les titres de section ne passent plus sous la navbar fixe au clic sur une ancre */
-section[id^="s-"] {
-  scroll-margin-top: var(--navbar-offset);
-}
-
-
-/* 3. NAVBAR ----------------------------------------------------------------------------------------------------------------- */
-.navbar {
-  width: 100%;
-  height: 50px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  z-index: var(--z-navbar);
-}
-
-.navbar .nav-links {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background-color: var(--color-bg-glass);
-  border: var(--border-1);
-  backdrop-filter: var(--blur-glass);
-  border-radius: var(--radius-pill);
-  padding: var(--space-xs);
-}
-
-.navbar .nav-links .navlink {
-  list-style: none;
-  margin: 0 var(--space-xs);
-  transition: color var(--transition-fast);
-}
-
-.navbar .nav-links .navlink a {
-  text-decoration: none;
-  color: var(--color-text-primary);
-  font-size: var(--font-size-body);
-  font-family: var(--font-text);
-  position: relative;
-}
-
-.navbar .nav-links .navlink a::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--palette-white);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-fast);
-}
-
-.navbar .nav-links .navlink a:hover::after {
-  transform: scaleX(1);
-}
-
-/* Toggle de langue : neutralise le style natif des <button> */
-.navbar .nav-links .lang-switch {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.lang-btn {
-  background: none;
-  border: 0;
-  padding: 0;
-  font: inherit;
-  font-size: var(--font-size-small);
-  letter-spacing: 1px;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  transition: color var(--transition-fast);
-}
-
-.lang-btn:hover,
-.lang-btn.is-active {
-  color: var(--color-text-primary);
-}
-
-.lang-sep {
-  font-size: var(--font-size-small);
-  color: var(--color-border);
-}
-
-
-/* 4. HERO ------------------------------------------------------------------------------------------------------------------- */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  background: var(--color-bg-page);
-}
-
-/* Degrade de raccord vers la section suivante */
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30vh;
-  background: linear-gradient(to bottom, transparent, var(--color-bg-page));
-  pointer-events: none;
-  z-index: 5;
-}
-
-/* --- Effet Rainbow (divs generees par le script) --- */
-.rainbow {
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 100vh;
-  transform: rotate(10deg);
-  transform-origin: top right;
-  animation-name: slide;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-
-@keyframes slide {
-  from { right: -25vw; }
-  to   { right: 125vw; }
-}
-
-/* Masques de fondu */
-.mask-h {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 0;
-  box-shadow: 0 0 50vh 40vh var(--color-bg-page);
-  pointer-events: none;
-}
-
-.mask-v {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 100vh;
-  box-shadow: 0 0 35vw 25vw var(--color-bg-page);
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  z-index: var(--z-content);
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  padding: clamp(20px, 4vw, 32px) clamp(20px, 4vw, 56px);
-  pointer-events: none;
-}
-
-/* Le conteneur est desormais l'enfant de la grille : c'est lui qu'on centre */
-.hero-identity {
-  align-self: center;
-  max-width: 90%;
-}
-
-.hero-title {
-  font-family: var(--font-title);
-  font-size: var(--font-size-h1);
-  font-weight: 400;
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-}
-
-/* Provisoire : hierarchie typographique definitive en phase 6 */
-.hero-role {
-  margin-top: var(--space-md);
-  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-}
-
-.hero-status {
-  margin-top: var(--space-xs);
-  font-size: var(--font-size-body);
-  color: var(--color-text-secondary);
-}
-
-.hero-footer {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: var(--space-sm);
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.7;
-}
-
-.hero-footer a {
-  pointer-events: auto;
-  text-decoration: none;
-  color: var(--color-text-primary);
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 1;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 2px;
-}
-
-
-/* 5. ABOUT ------------------------------------------------------------------------------------------------------------------ */
-#s-about {
-  min-height: 80vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-#s-about h2 {
-  font-size: var(--font-size-h2);
-  font-family: var(--font-title);
-  margin: var(--space-lg) 0;
-}
-
-#s-about .about-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 70px;
-}
-
-/* Conteneur photo + anneaux : les anneaux se calent sur la taille de la photo */
-#s-about .about-photo {
-  position: relative;
-  flex-shrink: 0;
-  margin: 50px;
-}
-
-#s-about .about-photo img {
-  display: block;
-  height: 300px;
-  width: 300px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* Le SVG deborde de 15 % autour de la photo. Pas de viewBox : les rayons
-   sont en % (ils suivent la taille de la photo), mais l'epaisseur reste en
-   px reels, identique a toutes les tailles d'ecran. */
-.about-rings {
-  position: absolute;
-  top: -15%;
-  left: -15%;
-  width: 130%;
-  height: 130%;
-  overflow: visible;
-  pointer-events: none;
-}
-
-.about-rings .ring {
-  fill: none;
-  stroke-width: var(--ring-width);
-  stroke-opacity: var(--ring-opacity);
-  stroke-linecap: round;
-  transform-box: view-box;
-  transform-origin: 50% 50%;
-  animation: ring-spin linear infinite;
-}
-
-/* stroke-dasharray : part visible du cercle en %, sur 100 (pathLength) */
-.about-rings .ring-1 {
-  stroke: var(--color-rainbow-1);
-  stroke-dasharray: 60 100;
-  animation-duration: calc(12s / var(--ring-speed));
-}
-
-.about-rings .ring-2 {
-  stroke: var(--color-rainbow-2);
-  stroke-dasharray: 42 100;
-  animation-duration: calc(19s / var(--ring-speed));
-  animation-direction: reverse;
-}
-
-.about-rings .ring-3 {
-  stroke: var(--color-rainbow-3);
-  stroke-dasharray: 28 100;
-  animation-duration: calc(29s / var(--ring-speed));
-}
-
-@keyframes ring-spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Remplace l'ancienne regle sur chaque <p> (300px de haut chacun) */
-#s-about .about-text {
-  width: 600px;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--space-sm);
-  font-size: var(--font-size-body);
-  line-height: 1.6;
-}
-
-
-/* 6. PROJECTS desktop (colonne scrollable + card sticky) -------------------------------------------------------------------- */
-#s-projects {
-  width: 100%;
-  padding-top: 10vh;
-}
-
-#s-projects .project-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: var(--space-lg) 0;
-}
-
-#s-projects h2 {
-  font-size: var(--font-size-h2);
-  font-family: var(--font-title);
-}
-
-.scroll-section-projects {
-  display: flex;
-  width: 100%;
-  padding: 0 50px 50px 50px;
-  gap: 40px;
-}
-
-.project-left {
-  flex: 3 1 0;          /* 60 / 40 avec la colonne de droite, gap deduit */
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8vh;
-  padding-block: var(--project-align-offset);
-}
-
-/* La card se cale sur l'image : captures en 2:1, aucun rognage.
-   Une seule image par projet sert au desktop et au mobile. */
-.project-card {
-  position: relative;
-  background-color: var(--color-bg-elevated);
-  border: var(--border-1);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.project-card img {
-  flex: none;
-  aspect-ratio: 2 / 1;
-  width: 100%;
-  height: auto;          /* neutralise l'attribut height= de la balise, qui
-                            desactiverait aspect-ratio */
-  display: block;
-  object-fit: cover;
-}
-
-/* Titre en surimpression, sur un degrade qui le detache de l'image */
-.project-card h3 {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 48px var(--space-md) var(--space-sm);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-  font-family: var(--font-title);
-  font-size: var(--font-size-h3);
-  font-weight: 400;
-}
-
-.project-right {
-  flex: 2 1 0;
-  min-width: 0;
-  position: relative;
-  /* Pas de hauteur explicite : en flex ligne, la colonne s'etire a la
-     hauteur de .project-left, quel que soit le nombre de projets. */
-}
-
-/* Grille au lieu de flex : les panneaux se superposent dans la meme cellule,
-   la carte ne change pas de hauteur a chaque bascule, et plus de debordement
-   vers le haut (cause du chevauchement avec le About).
-   Le panneau demarre sous la navbar et occupe le reste de l'ecran. */
-.project-card-fixed {
-  position: sticky;
-  top: var(--navbar-offset);
-  height: calc(100vh - var(--navbar-offset) - 24px);
-  background-color: var(--palette-black);
-  border: var(--border-1);
-  border-radius: var(--radius-sm);
-  padding: 28px;
-  display: grid;
-}
-
-/* Un seul panneau visible. visibility: hidden retire aussi les
-   panneaux inactifs de l'arbre d'accessibilite.
-
-   LIMITE DE TEXTE — desktop sans scroll
-   780 caracteres maximum par projet : paragraphes de description cumules,
-   espaces compris (hors titre, badges, stack et lien).
-   Verifie en FR et en EN de 1024x650 a 1920x950. Au-dela de la limite,
-   le bas du texte est coupe : pas de scroll interne, volontairement.
-   Toute modification de font-size, line-height ou padding de ce bloc
-   change cette limite : la re-verifier.
-
-   overflow: hidden et non auto : un panneau scrollable, meme de quelques
-   pixels, capture le geste de scroll et bloque celui de la page. */
-.project-panel {
-  grid-area: 1 / 1;
-  align-self: center;
-  max-height: 100%;
-  overflow: hidden;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity var(--transition-fast), visibility 0s linear 0.2s;
-}
-
-.project-panel.is-active {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity var(--transition-fast);
-}
-
-.project-panel h3 {
-  margin-bottom: var(--space-xs);
-  font-family: var(--font-title);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--color-text-primary);
-}
-
-.project-panel p {
-  margin-bottom: 12px;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--color-text-primary);
-}
-
-.project-panel .project-stack {
-  font-size: var(--font-size-small);
-  color: var(--color-text-secondary);
-}
-
-.project-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-bottom: 12px;
-}
-
-/* Badges : meme style que .pcard-domain (mobile) */
-.project-domain,
-.project-status,
-.pcard-domain {
-  align-self: flex-start;
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--color-text-secondary);
-  border: var(--border-1);
-  border-radius: var(--radius-pill);
-  padding: 3px 10px;
-}
-
-.project-links {
-  margin-top: var(--space-xs);
-}
-
-.project-links a {
-  font-size: var(--font-size-small);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--color-text-primary);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 2px;
-  transition: border-color var(--transition-fast);
-}
-
-.project-links a:hover {
-  border-color: var(--color-text-primary);
-}
-
-
-/* 7. PROJECTS cartes mobile (.pcard) ---------------------------------------------------------------------------------------- */
-.projects-carousel {
-  display: none;             /* active en <= 600px */
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 0 15vw 24px;
-  scrollbar-width: none;
-}
-
-.projects-carousel::-webkit-scrollbar { display: none; }
-
-.pcard {
-  position: relative;
-  flex: 0 0 80vw;
-  height: auto;
-  scroll-snap-align: center;
-  background: var(--color-bg-elevated);
-  border: var(--border-1);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transform: scale(0.9);
-  opacity: 0.5;
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.pcard.is-active {
-  transform: scale(1);
-  opacity: 1;
-}
-
-/* Meme rapport 2:1 que sur desktop : une seule capture par projet */
-.pcard-img {
-  flex: none;
-  aspect-ratio: 2 / 1;
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-.pcard-body {
-  flex: 1 1 auto;
-  min-height: 0;
-  padding: 14px 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* .pcard-domain : voir section 6 (style partage avec les badges desktop) */
-
-.pcard-name {
-  font-size: 1.2rem;
-  font-family: var(--font-title);
-  color: var(--color-text-primary);
-}
-
-.pcard-stack {
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
-}
-
-/* Resume court, nouveau */
-.pcard-summary {
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--color-text-secondary);
-}
-
-.pcard-footer {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.pcard-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.8rem;
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
-.pcard-more,
-.pcard-less {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: var(--border-1);
-  background: var(--color-bg-glass);
-  color: var(--color-text-primary);
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.pcard-panel {
-  position: absolute;
-  inset: 0;
-  background: rgba(18, 18, 18, 0.62);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  padding: 22px 18px;
-  display: flex;
-  flex-direction: column;
-  transform: translateY(100%);
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.pcard-panel.is-open {
-  transform: translateY(0);
-}
-
-.pcard-panel-name {
-  font-size: 1rem;
-  font-family: var(--font-title);
-  color: var(--color-text-primary);
-  margin-bottom: 10px;
-}
-
-/* Contient maintenant 3 paragraphes : scroll interne */
-.pcard-desc {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: #d0d0d0;
-}
-
-.pcard-less {
-  margin-top: 12px;
-  flex-shrink: 0;
-}
-
-
-/* 8. SKILLS ----------------------------------------------------------------------------------------------------------------- */
-#s-skills {
-  position: relative;
-  overflow: hidden;
-  min-height: 80vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 100px;
-}
-
-/* Canvas des vagues : couvre toute la section, derriere le contenu */
-.skills-waves {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Tout le contenu de la section passe au premier plan */
-#s-skills > :not(.skills-waves) {
-  position: relative;
-  z-index: 1;
-}
-
-#s-skills h2 {
-  font-size: var(--font-size-h2);
-  font-family: var(--font-title);
-  margin: var(--space-lg) 0 var(--space-md);
-}
-
-/* Legende des deux niveaux — provisoire, traitement visuel en phase 6 */
-#s-skills .skills-legend {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-  font-size: var(--font-size-small);
-  color: var(--color-text-secondary);
-}
-
-.legend-item::before {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin-right: 6px;
-  border-radius: 50%;
-  border: 1px solid var(--color-text-secondary);
-  vertical-align: middle;
-}
-
-.legend-practiced::before { background: var(--color-text-secondary); }
-.legend-learning::before  { border-style: dashed; }
-
-#s-skills .skills-list {
-  width: 600px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-/* Fond opaque : les vagues ne doivent pas se voir a travers les cartes */
-#s-skills .skills-card {
-  height: 40px;
-  background-color: var(--color-bg-card);
-  border: var(--border-1);
-  border-radius: var(--radius-md);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  gap: 6px;
-  transition: transform 0.4s ease-in-out;
-}
-
-/* Niveau "en cours d'apprentissage" — provisoire */
-/* Niveau "en cours" : on attenue le contenu, pas la carte entiere,
-   sinon la carte redevient transparente et laisse passer les vagues */
-#s-skills .skills-card.is-learning {
-  border-style: dashed;
-  color: var(--color-text-secondary);
-}
-
-#s-skills .skills-card.is-learning img {
-  opacity: 0.6;
-}
-
-#s-skills .card-L:hover { transform: rotate(18deg); }
-#s-skills .card-R:hover { transform: rotate(-18deg); }
-
-#s-skills .skills-card img {
-  height: 25px;
-  object-fit: cover;
-}
-
-
-/* 9. FOOTER ----------------------------------------------------------------------------------------------------------------- */
-footer {
-  width: 100%;
-  background-color: var(--color-bg-elevated);
-  padding: var(--space-lg) var(--space-md);
-  scroll-margin-bottom: 100px;
-}
-
-.footer-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--space-lg);
-}
-
-/* Phrase d'appel, a gauche en desktop */
-.footer-cta {
-  flex: 1 1 auto;
-  max-width: 460px;
-  font-family: var(--font-title);
-  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
-  line-height: 1.35;
-  color: var(--color-text-primary);
-}
-
-/* Bloc contact, a droite, separe par un filet vertical */
-.footer-contact {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding-left: var(--space-lg);
-  border-left: var(--border-1);
-}
-
-.footer-label {
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-}
-
-.footer-mail {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.footer-mail a {
-  color: var(--color-text-primary);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 2px;
-  transition: border-color var(--transition-fast);
-}
-
-.footer-mail a:hover { border-color: var(--color-text-primary); }
-
-.footer-copy {
-  font-family: var(--font-text);
-  font-size: 11px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--color-text-secondary);
-  background: var(--color-bg-glass);
-  border: var(--border-1);
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  cursor: pointer;
-  transition: color var(--transition-fast);
-}
-
-.footer-copy:hover { color: var(--color-text-primary); }
-
-/* Lien CV, nouveau */
-.footer-cv {
-  align-self: flex-start;
-  font-size: var(--font-size-small);
-  color: var(--color-text-primary);
-  text-decoration: none;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 2px;
-  transition: border-color var(--transition-fast);
-}
-
-.footer-cv:hover { border-color: var(--color-text-primary); }
-
-.footer-links {
-  display: flex;
-  gap: var(--space-sm);
-  list-style: none;
-}
-
-.footer-links a {
-  font-size: var(--font-size-small);
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-.footer-links a:hover { color: var(--color-text-primary); }
-
-.footer-signature {
-  max-width: 1000px;
-  margin: var(--space-lg) auto 0;
-  text-align: center;
-  font-size: 11px;
-  letter-spacing: 1px;
-  color: var(--color-text-secondary);
-}
-
-
-/* 10. RESPONSIVE <= 1279px (petits ecrans desktop) ------------------------------------------------------------------------ */
-/* Sous 1280px, le panneau a 40 % devient trop etroit pour la limite de
-   780 caracteres : les deux colonnes passent a parts egales. */
-@media (max-width: 1279px) {
-
-  .project-left,
-  .project-right {
-    flex: 1 1 0;
+/* 0. POLICES ---------------------------------------------------------------------------------------------------------------- 
+   Fichiers servis depuis le depot (dossier /fonts), pas depuis Google Fonts :
+   un aller-retour reseau en moins et aucune dependance externe.
+   Sous-ensemble latin uniquement, format woff2.
+   font-display: swap -> le texte s'affiche tout de suite dans la police de
+   secours, puis bascule quand le fichier est charge. */
+
+   @font-face {
+    font-family: "Space Grotesk";
+    src: url("fonts/space-grotesk-latin-400-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
-}
-
-
-/* 11. RESPONSIVE <= 1024px (tablette) --------------------------------------------------------------------------------------- */
-@media (max-width: 1024px) {
-
-  /* --- About --- */
-  #s-about {
-    min-height: auto;
-    padding: 48px 0;
+  
+  @font-face {
+    font-family: "Space Grotesk";
+    src: url("fonts/space-grotesk-latin-500-normal.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
   }
-
-  #s-about h2 {
-    margin: 0 0 32px;
+  
+  @font-face {
+    font-family: "Inter";
+    src: url("fonts/inter-latin-400-normal.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
-
-  #s-about .about-content {
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
+  
+  @font-face {
+    font-family: "Inter";
+    src: url("fonts/inter-latin-500-normal.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
   }
-
-  #s-about .about-photo {
-    margin: 0;
-  }
-
-  #s-about .about-photo img {
-    height: 200px;
-    width: 200px;
-  }
-
-  /* Cible le conteneur, plus chaque <p> */
-  #s-about .about-text {
-    width: 100%;
-    max-width: 560px;
-    padding: 0 24px;
-  }
-}
-
-
-/* 12. RESPONSIVE <= 900px (tablette portrait) ------------------------------------------------------------------------------ */
-/* Le layout sticky 60/40 devient illisible sous ~900px : les projets passent
-   au carrousel. La navbar, elle, reste en haut jusqu'a 600px. */
-@media (max-width: 900px) {
-
-  .scroll-section-projects {
-    display: none;
-  }
-
-  .projects-carousel {
-    display: flex;
-  }
-}
-
-
-/* 13. RESPONSIVE <= 600px (mobile) ------------------------------------------------------------------------------------------ */
-@media (max-width: 600px) {
-
-  /* --- Rainbow --- */
+  
+  
+  /* 1. VARIABLES ------------------------------------------------------------------------------------------------------------ */
   :root {
-    --rainbow-count: 12;
-    --navbar-offset: 0px;   /* navbar en bas : pas de decalage pour les ancres */
+    /* Palette constante */
+    --palette-black: #000;
+    --palette-white: #ffffff;
+  
+    /* Couleurs */
+    --color-bg-page:        var(--palette-black);
+    --color-bg-elevated:    #1b1a1a;
+    --color-bg-glass:       rgba(255, 255, 255, 0.05);
+    --color-bg-card:        #0d0d0d;   /* rendu de --color-bg-glass sur fond noir, mais opaque */
+    --color-text-primary:   var(--palette-white);
+    --color-text-secondary: #b8b8b8;
+    --color-border:         rgba(90, 90, 90, 1);
+    --color-accent:         #3fb3bd;   /* provisoire (phase 6) : 6.9:1 sur bg-elevated, 8.4:1 sur noir */
+  
+    /* Couleurs Rainbow (hero) */
+    --color-rainbow-1: rgb(232, 121, 249);
+    --color-rainbow-2: rgb(96, 165, 250);
+    --color-rainbow-3: rgb(94, 234, 212);
+  
+    /* Typographie */
+    --font-title:      "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --font-text:       "Inter", "Helvetica Neue", Arial, sans-serif;
+    --font-size-h1:    clamp(2.75rem, 10vw, 6rem);
+    --font-size-h2:    2.5rem;
+    --font-size-h3:    1.8rem;
+    --font-size-body:  1rem;
+    --font-size-small: 0.8rem;
+  
+    /* Espacements */
+    --space-xs: 8px;
+    --space-sm: 16px;
+    --space-md: 32px;
+    --space-lg: 64px;
+    --space-xl: 128px;
+  
+    /* Effets */
+    --blur-glass:  blur(5px);
+    --radius-sm:   8px;
+    --radius-md:   15px;
+    --radius-lg:   20px;
+    --radius-pill: 40px;
+    --border-1:    solid 1px var(--color-border);
+  
+    /* Animations */
+    --transition-fast: 0.2s ease;
+    --transition-slow: 1.5s ease;
+  
+    /* Z-index */
+    --z-content: 10;
+    --z-navbar:  50;
+  
+    /* Hero Rainbow: lu par script.js au chargement */
+    --rainbow-count:     25;
+    --rainbow-animation: 45s;
+  
+    /* Projets : espace ajoute en haut et en bas de la colonne de gauche pour que
+       la premiere et la derniere carte se rapprochent du centre du panneau sticky.
+       Valeur approchee : l'ecart exact varie legerement selon la taille d'ecran. */
+    --project-align-offset: 16vh;
+  
+    /* Anneaux autour de la photo (About) */
+    --ring-width:   2px;    /* epaisseur du trait */
+    --ring-opacity: 0.4;    /* intensite : 0 = invisible, 1 = couleur pleine */
+    --ring-speed:   1;      /* multiplicateur : 2 = deux fois plus vite, 0.5 = deux fois plus lent */
+  
+    /* Vagues en arriere-plan (Skills) : lues par script.js au chargement */
+    --waves-count:     4;     /* nombre de lignes */
+    --waves-amplitude: 1;     /* 1 = 100 % : hauteur max des vagues, de 0 a 1 */
+    --waves-speed:     0.5;   /* multiplicateur : 1 = vitesse de reference */
+    --waves-opacity:   0.4;   /* intensite : 0 = invisible, 1 = couleur pleine */
+  
+    /* Navbar */
+    --navbar-h-mobile: 60px;
+    --navbar-offset:   90px;   /* hauteur navbar desktop + marge, pour les ancres */
   }
-
-  /* --- Body --- */
-  body {
-    padding-bottom: calc(var(--navbar-h-mobile) + 28px + env(safe-area-inset-bottom, 0px));
-  }
-
-  /* --- Navbar --- */
-  .navbar {
-    top: auto;
-    bottom: 0;
-    height: auto;
-    margin-top: 0;
-    padding: 0 8px calc(12px + env(safe-area-inset-bottom, 0px));
-  }
-
-  .navbar .nav-links {
-    width: 100%;
-    height: var(--navbar-h-mobile);
-    border-radius: var(--radius-lg);
-    padding: 0 16px;
-    justify-content: space-between;
-    gap: 6px;
-  }
-
-  .navbar .nav-links .navlink {
+  
+  
+  /* 2. RESET & BASE ----------------------------------------------------------------------------------------------------------- */
+  * {
+    box-sizing: border-box;
     margin: 0;
-  }
-
-  .navbar .nav-links .navlink a {
-    font-size: 13px;
-  }
-
-  /* --- Hero --- */
-  .hero {
-    height: 100vh;
-    height: 100svh;
-  }
-
-  .hero-content {
-    padding-bottom: calc(var(--navbar-h-mobile) + 40px + env(safe-area-inset-bottom, 0px));
-  }
-
-  /* Porte sur le conteneur au lieu du h1 */
-  .hero-identity {
-    text-align: start;
-    max-width: 100%;
-  }
-
-  .hero-footer {
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-  }
-
-  /* --- About --- */
-  #s-about {
-    padding: 120px 0 80px 0;
-  }
-
-  #s-about .about-photo img {
-    height: 150px;
-    width: 150px;
-  }
-
-  /* Cible le conteneur, plus chaque <p> */
-  #s-about .about-text {
-    font-size: 0.95rem;
-    padding: 0 20px;
-  }
-
-  /* --- Skills --- */
-  #s-skills .skills-list {
-    width: calc(100% - 48px);
-    max-width: 600px;
-    margin: 0 auto;
     padding: 0;
   }
-
-  /* --- Footer --- */
-  /* Phrase en haut, contact en dessous, separes par un filet horizontal */
-  .footer-inner {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    text-align: center;
+  
+  html {
+    scroll-behavior: smooth;
   }
-
-  .footer-cta {
-    flex: none;
-    max-width: 100%;
+  
+  body {
+    background-color: var(--color-bg-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-text);
+    transition: background-color var(--transition-slow), color var(--transition-fast);
   }
-
-  .footer-contact {
+  
+  /* Contour de focus clavier : le contour natif est quasi invisible sur fond noir */
+  :focus-visible {
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 3px;
+  }
+  
+  /* Les titres de section ne passent plus sous la navbar fixe au clic sur une ancre */
+  section[id^="s-"] {
+    scroll-margin-top: var(--navbar-offset);
+  }
+  
+  
+  /* 3. NAVBAR ----------------------------------------------------------------------------------------------------------------- */
+  .navbar {
     width: 100%;
+    height: 50px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: var(--space-xs);
-    padding-left: 0;
-    padding-top: var(--space-md);
-    border-left: 0;
-    border-top: var(--border-1);
+    position: fixed;
+    z-index: var(--z-navbar);
   }
-
-  .footer-mail {
+  
+  .navbar .nav-links {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--color-bg-glass);
+    border: var(--border-1);
+    backdrop-filter: var(--blur-glass);
+    border-radius: var(--radius-pill);
+    padding: var(--space-xs);
+  }
+  
+  .navbar .nav-links .navlink {
+    list-style: none;
+    margin: 0 var(--space-xs);
+    transition: color var(--transition-fast);
+  }
+  
+  .navbar .nav-links .navlink a {
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-body);
+    font-family: var(--font-text);
+    position: relative;
+  }
+  
+  .navbar .nav-links .navlink a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--palette-white);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-fast);
+  }
+  
+  .navbar .nav-links .navlink a:hover::after {
+    transform: scaleX(1);
+  }
+  
+  /* Toggle de langue : neutralise le style natif des <button> */
+  .navbar .nav-links .lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .lang-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: var(--font-size-small);
+    letter-spacing: 1px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+  
+  .lang-btn:hover,
+  .lang-btn.is-active {
+    color: var(--color-text-primary);
+  }
+  
+  .lang-sep {
+    font-size: var(--font-size-small);
+    color: var(--color-border);
+  }
+  
+  
+  /* 4. HERO ------------------------------------------------------------------------------------------------------------------- */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--color-bg-page);
+  }
+  
+  /* Degrade de raccord vers la section suivante */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    background: linear-gradient(to bottom, transparent, var(--color-bg-page));
+    pointer-events: none;
+    z-index: 5;
+  }
+  
+  /* --- Effet Rainbow (divs generees par le script) --- */
+  .rainbow {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 100vh;
+    transform: rotate(10deg);
+    transform-origin: top right;
+    animation-name: slide;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes slide {
+    from { right: -25vw; }
+    to   { right: 125vw; }
+  }
+  
+  /* Masques de fondu */
+  .mask-h {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 0;
+    box-shadow: 0 0 50vh 40vh var(--color-bg-page);
+    pointer-events: none;
+  }
+  
+  .mask-v {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 100vh;
+    box-shadow: 0 0 35vw 25vw var(--color-bg-page);
+    pointer-events: none;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: var(--z-content);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: clamp(20px, 4vw, 32px) clamp(20px, 4vw, 56px);
+    pointer-events: none;
+  }
+  
+  /* Le conteneur est desormais l'enfant de la grille : c'est lui qu'on centre */
+  .hero-identity {
+    align-self: center;
+    max-width: 90%;
+  }
+  
+  .hero-title {
+    font-family: var(--font-title);
+    font-size: var(--font-size-h1);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+  }
+  
+  /* Provisoire : hierarchie typographique definitive en phase 6 */
+  .hero-role {
+    margin-top: var(--space-md);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  }
+  
+  .hero-status {
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-body);
+    color: var(--color-text-secondary);
+  }
+  
+  .hero-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: var(--space-sm);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+  
+  .hero-footer a {
+    pointer-events: auto;
+    text-decoration: none;
+    color: var(--color-text-primary);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 1;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
+  
+  
+  /* 5. ABOUT ------------------------------------------------------------------------------------------------------------------ */
+  #s-about {
+    min-height: 80vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  #s-about h2 {
+    font-size: var(--font-size-h2);
+    font-family: var(--font-title);
+    margin: var(--space-lg) 0;
+  }
+  
+  #s-about .about-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 70px;
+  }
+  
+  /* Conteneur photo + anneaux : les anneaux se calent sur la taille de la photo */
+  #s-about .about-photo {
+    position: relative;
+    flex-shrink: 0;
+    margin: 50px;
+  }
+  
+  #s-about .about-photo img {
+    display: block;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  /* Le SVG deborde de 15 % autour de la photo. Pas de viewBox : les rayons
+     sont en % (ils suivent la taille de la photo), mais l'epaisseur reste en
+     px reels, identique a toutes les tailles d'ecran. */
+  .about-rings {
+    position: absolute;
+    top: -15%;
+    left: -15%;
+    width: 130%;
+    height: 130%;
+    overflow: visible;
+    pointer-events: none;
+  }
+  
+  .about-rings .ring {
+    fill: none;
+    stroke-width: var(--ring-width);
+    stroke-opacity: var(--ring-opacity);
+    stroke-linecap: round;
+    transform-box: view-box;
+    transform-origin: 50% 50%;
+    animation: ring-spin linear infinite;
+  }
+  
+  /* stroke-dasharray : part visible du cercle en %, sur 100 (pathLength) */
+  .about-rings .ring-1 {
+    stroke: var(--color-rainbow-1);
+    stroke-dasharray: 60 100;
+    animation-duration: calc(12s / var(--ring-speed));
+  }
+  
+  .about-rings .ring-2 {
+    stroke: var(--color-rainbow-2);
+    stroke-dasharray: 42 100;
+    animation-duration: calc(19s / var(--ring-speed));
+    animation-direction: reverse;
+  }
+  
+  .about-rings .ring-3 {
+    stroke: var(--color-rainbow-3);
+    stroke-dasharray: 28 100;
+    animation-duration: calc(29s / var(--ring-speed));
+  }
+  
+  @keyframes ring-spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Remplace l'ancienne regle sur chaque <p> (300px de haut chacun) */
+  #s-about .about-text {
+    width: 600px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-size: var(--font-size-body);
+    line-height: 1.6;
+  }
+  
+  
+  /* 6. PROJECTS desktop (colonne scrollable + card sticky) -------------------------------------------------------------------- */
+  #s-projects {
+    width: 100%;
+    padding-top: 10vh;
+  }
+  
+  #s-projects .project-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: var(--space-lg) 0;
+  }
+  
+  #s-projects h2 {
+    font-size: var(--font-size-h2);
+    font-family: var(--font-title);
+  }
+  
+  .scroll-section-projects {
+    display: flex;
+    width: 100%;
+    padding: 0 50px 50px 50px;
+    gap: 40px;
+  }
+  
+  .project-left {
+    flex: 3 1 0;          /* 60 / 40 avec la colonne de droite, gap deduit */
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8vh;
+    padding-block: var(--project-align-offset);
+  }
+  
+  /* La card se cale sur l'image : captures en 2:1, aucun rognage.
+     Une seule image par projet sert au desktop et au mobile. */
+  .project-card {
+    position: relative;
+    background-color: var(--color-bg-elevated);
+    border: var(--border-1);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .project-card img {
+    flex: none;
+    aspect-ratio: 2 / 1;
+    width: 100%;
+    height: auto;          /* neutralise l'attribut height= de la balise, qui
+                              desactiverait aspect-ratio */
+    display: block;
+    object-fit: cover;
+  }
+  
+  /* Titre en surimpression, sur un degrade qui le detache de l'image */
+  .project-card h3 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 48px var(--space-md) var(--space-sm);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    font-family: var(--font-title);
+    font-size: var(--font-size-h3);
+    font-weight: 400;
+  }
+  
+  .project-right {
+    flex: 2 1 0;
+    min-width: 0;
+    position: relative;
+    /* Pas de hauteur explicite : en flex ligne, la colonne s'etire a la
+       hauteur de .project-left, quel que soit le nombre de projets. */
+  }
+  
+  /* Grille au lieu de flex : les panneaux se superposent dans la meme cellule,
+     la carte ne change pas de hauteur a chaque bascule, et plus de debordement
+     vers le haut (cause du chevauchement avec le About).
+     Le panneau demarre sous la navbar et occupe le reste de l'ecran. */
+  .project-card-fixed {
+    position: sticky;
+    top: var(--navbar-offset);
+    height: calc(100vh - var(--navbar-offset) - 24px);
+    background-color: var(--palette-black);
+    border: var(--border-1);
+    border-radius: var(--radius-sm);
+    padding: 28px;
+    display: grid;
+  }
+  
+  /* Un seul panneau visible. visibility: hidden retire aussi les
+     panneaux inactifs de l'arbre d'accessibilite.
+  
+     LIMITE DE TEXTE — desktop sans scroll
+     780 caracteres maximum par projet : paragraphes de description cumules,
+     espaces compris (hors titre, badges, stack et lien).
+     Verifie en FR et en EN de 1024x650 a 1920x950. Au-dela de la limite,
+     le bas du texte est coupe : pas de scroll interne, volontairement.
+     Toute modification de font-size, line-height ou padding de ce bloc
+     change cette limite : la re-verifier.
+  
+     overflow: hidden et non auto : un panneau scrollable, meme de quelques
+     pixels, capture le geste de scroll et bloque celui de la page. */
+  .project-panel {
+    grid-area: 1 / 1;
+    align-self: center;
+    max-height: 100%;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-fast), visibility 0s linear 0.2s;
+  }
+  
+  .project-panel.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--transition-fast);
+  }
+  
+  .project-panel h3 {
+    margin-bottom: var(--space-xs);
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--color-text-primary);
+  }
+  
+  .project-panel p {
+    margin-bottom: 10px;
+    font-size: 0.875rem;   /* Inter porte plus haut que Georgia a taille egale :
+                              0.9rem debordait de 28px sur un ecran de 650px de haut */
+    line-height: 1.45;
+    color: var(--color-text-primary);
+  }
+  
+  .project-panel .project-stack {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+  }
+  
+  .project-badges {
+    display: flex;
     flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: 12px;
+  }
+  
+  /* Badges : meme style que .pcard-domain (mobile) */
+  .project-domain,
+  .project-status,
+  .pcard-domain {
+    align-self: flex-start;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--color-text-secondary);
+    border: var(--border-1);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+  }
+  
+  .project-links {
+    margin-top: var(--space-xs);
+  }
+  
+  .project-links a {
+    font-size: var(--font-size-small);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2px;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .project-links a:hover {
+    border-color: var(--color-text-primary);
+  }
+  
+  
+  /* 7. PROJECTS cartes mobile (.pcard) ---------------------------------------------------------------------------------------- */
+  .projects-carousel {
+    display: none;             /* active en <= 600px */
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 15vw 24px;
+    scrollbar-width: none;
+  }
+  
+  .projects-carousel::-webkit-scrollbar { display: none; }
+  
+  .pcard {
+    position: relative;
+    flex: 0 0 80vw;
+    height: auto;
+    scroll-snap-align: center;
+    background: var(--color-bg-elevated);
+    border: var(--border-1);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.9);
+    opacity: 0.5;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+  
+  .pcard.is-active {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  /* Meme rapport 2:1 que sur desktop : une seule capture par projet */
+  .pcard-img {
+    flex: none;
+    aspect-ratio: 2 / 1;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  
+  .pcard-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 14px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  /* .pcard-domain : voir section 6 (style partage avec les badges desktop) */
+  
+  .pcard-name {
+    font-size: 1.2rem;
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+  }
+  
+  .pcard-stack {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+  }
+  
+  /* Resume court, nouveau */
+  .pcard-summary {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+  }
+  
+  .pcard-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .pcard-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  
+  .pcard-more,
+  .pcard-less {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: var(--border-1);
+    background: var(--color-bg-glass);
+    color: var(--color-text-primary);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
-
-  .footer-cv {
-    align-self: center;
+  
+  .pcard-panel {
+    position: absolute;
+    inset: 0;
+    background: rgba(18, 18, 18, 0.62);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(100%);
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  .footer-mail a {
-    word-break: break-all;
+  
+  .pcard-panel.is-open {
+    transform: translateY(0);
   }
-
-  .footer-copy {
-    padding: 6px 14px;
+  
+  .pcard-panel-name {
+    font-size: 1rem;
+    font-family: var(--font-title);
+    color: var(--color-text-primary);
+    margin-bottom: 10px;
   }
-
-  .footer-links {
+  
+  /* Contient maintenant 3 paragraphes : scroll interne */
+  .pcard-desc {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #d0d0d0;
+  }
+  
+  .pcard-less {
+    margin-top: 12px;
+    flex-shrink: 0;
+  }
+  
+  
+  /* 8. SKILLS ----------------------------------------------------------------------------------------------------------------- */
+  #s-skills {
+    position: relative;
+    overflow: hidden;
+    min-height: 60vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+  }
+  
+  /* Canvas des vagues : couvre toute la section, derriere le contenu */
+  .skills-waves {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Tout le contenu de la section passe au premier plan */
+  #s-skills > :not(.skills-waves) {
+    position: relative;
+    z-index: 1;
+  }
+  
+  #s-skills h2 {
+    font-size: var(--font-size-h2);
+    font-family: var(--font-title);
+    margin: var(--space-lg) 0 var(--space-md);
+  }
+  
+  /* Legende des deux niveaux — provisoire, traitement visuel en phase 6 */
+  #s-skills .skills-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-md);
-    padding-top: var(--space-xs);
+    margin-bottom: var(--space-md);
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
   }
-}
-
-
-/* 14. ACCESSIBILITE prefers-reduced-motion ---------------------------------------------------------------------------------- */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-
-  .rainbow { animation: none; }
-  .about-rings .ring { animation: none; }
-
-  .pcard,
-  .pcard-panel,
-  .project-panel,              /* remplace .project-card-content */
-  .project-panel.is-active,
+  
+  .legend-item::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--color-text-secondary);
+    vertical-align: middle;
+  }
+  
+  .legend-practiced::before { background: var(--color-text-secondary); }
+  .legend-learning::before  { border-style: dashed; }
+  
+  #s-skills .skills-list {
+    width: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  /* Fond opaque : les vagues ne doivent pas se voir a travers les cartes */
   #s-skills .skills-card {
-    transition: none;
+    height: 40px;
+    background-color: var(--color-bg-card);
+    border: var(--border-1);
+    border-radius: var(--radius-md);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 6px;
+    transition: transform 0.4s ease-in-out;
   }
-}
-
-
-/* 15. PAGE 404 --------------------------------------------------------------------------------------------------------------- */
-.notfound {
-  min-height: 100vh;
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  padding: var(--space-md);
-  text-align: center;
-}
-
-.notfound-code {
-  font-family: var(--font-title);
-  font-size: clamp(4rem, 18vw, 9rem);
-  font-weight: 400;
-  line-height: 1;
-}
-
-.notfound-text {
-  max-width: 40ch;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-}
-
-.notfound-back {
-  margin-top: var(--space-md);
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-text-primary);
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-  padding-bottom: 2px;
-}
+  
+  /* Niveau "en cours d'apprentissage" — provisoire */
+  /* Niveau "en cours" : on attenue le contenu, pas la carte entiere,
+     sinon la carte redevient transparente et laisse passer les vagues */
+  #s-skills .skills-card.is-learning {
+    border-style: dashed;
+    color: var(--color-text-secondary);
+  }
+  
+  #s-skills .skills-card.is-learning img {
+    opacity: 0.6;
+  }
+  
+  #s-skills .card-L:hover { transform: rotate(18deg); }
+  #s-skills .card-R:hover { transform: rotate(-18deg); }
+  
+  #s-skills .skills-card img {
+    height: 25px;
+    object-fit: cover;
+  }
+  
+  
+  /* 9. FOOTER ----------------------------------------------------------------------------------------------------------------- */
+  footer {
+    width: 100%;
+    background-color: var(--color-bg-elevated);
+    padding: var(--space-lg) var(--space-md);
+    scroll-margin-bottom: 100px;
+  }
+  
+  .footer-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+  
+  /* Phrase d'appel, a gauche en desktop */
+  .footer-cta {
+    flex: 1 1 auto;
+    max-width: 460px;
+    font-family: var(--font-title);
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    line-height: 1.35;
+    color: var(--color-text-primary);
+  }
+  
+  /* Bloc contact, a droite, separe par un filet vertical */
+  .footer-contact {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding-left: var(--space-lg);
+    border-left: var(--border-1);
+  }
+  
+  .footer-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+  
+  .footer-mail {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+  
+  .footer-mail a {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2px;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .footer-mail a:hover { border-color: var(--color-text-primary); }
+  
+  .footer-copy {
+    font-family: var(--font-text);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    background: var(--color-bg-glass);
+    border: var(--border-1);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+  
+  .footer-copy:hover { color: var(--color-text-primary); }
+  
+  /* Lien CV, nouveau */
+  .footer-cv {
+    align-self: flex-start;
+    font-size: var(--font-size-small);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2px;
+    transition: border-color var(--transition-fast);
+  }
+  
+  .footer-cv:hover { border-color: var(--color-text-primary); }
+  
+  .footer-links {
+    display: flex;
+    gap: var(--space-sm);
+    list-style: none;
+  }
+  
+  .footer-links a {
+    font-size: var(--font-size-small);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  .footer-links a:hover { color: var(--color-text-primary); }
+  
+  .footer-signature {
+    max-width: 1000px;
+    margin: var(--space-lg) auto 0;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--color-text-secondary);
+  }
+  
+  
+  /* 10. RESPONSIVE <= 1279px (petits ecrans desktop) ------------------------------------------------------------------------ */
+  /* Sous 1280px, le panneau a 40 % devient trop etroit pour la limite de
+     780 caracteres : les deux colonnes passent a parts egales. */
+  @media (max-width: 1279px) {
+  
+    .project-left,
+    .project-right {
+      flex: 1 1 0;
+    }
+  }
+  
+  
+  /* 11. RESPONSIVE <= 1024px (tablette) --------------------------------------------------------------------------------------- */
+  @media (max-width: 1024px) {
+  
+    /* --- About --- */
+    #s-about {
+      min-height: auto;
+      padding: 48px 0;
+    }
+  
+    #s-about h2 {
+      margin: 0 0 32px;
+    }
+  
+    #s-about .about-content {
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+  
+    #s-about .about-photo {
+      margin: 0;
+    }
+  
+    #s-about .about-photo img {
+      height: 200px;
+      width: 200px;
+    }
+  
+    /* Cible le conteneur, plus chaque <p> */
+    #s-about .about-text {
+      width: 100%;
+      max-width: 560px;
+      padding: 0 24px;
+    }
+  }
+  
+  
+  /* 12. RESPONSIVE <= 900px (tablette portrait) ------------------------------------------------------------------------------ */
+  /* Le layout sticky 60/40 devient illisible sous ~900px : les projets passent
+     au carrousel. La navbar, elle, reste en haut jusqu'a 600px. */
+  @media (max-width: 900px) {
+  
+    .scroll-section-projects {
+      display: none;
+    }
+  
+    .projects-carousel {
+      display: flex;
+    }
+  }
+  
+  
+  /* 13. RESPONSIVE <= 600px (mobile) ------------------------------------------------------------------------------------------ */
+  @media (max-width: 600px) {
+  
+    /* --- Rainbow --- */
+    :root {
+      --rainbow-count: 12;
+      --navbar-offset: 0px;   /* navbar en bas : pas de decalage pour les ancres */
+    }
+  
+    /* --- Body --- */
+    body {
+      padding-bottom: calc(var(--navbar-h-mobile) + 28px + env(safe-area-inset-bottom, 0px));
+    }
+  
+    /* --- Navbar --- */
+    .navbar {
+      top: auto;
+      bottom: 0;
+      height: auto;
+      margin-top: 0;
+      padding: 0 8px calc(12px + env(safe-area-inset-bottom, 0px));
+    }
+  
+    .navbar .nav-links {
+      width: 100%;
+      height: var(--navbar-h-mobile);
+      border-radius: var(--radius-lg);
+      padding: 0 16px;
+      justify-content: space-between;
+      gap: 6px;
+    }
+  
+    .navbar .nav-links .navlink {
+      margin: 0;
+    }
+  
+    .navbar .nav-links .navlink a {
+      font-size: 13px;
+    }
+  
+    /* --- Hero --- */
+    .hero {
+      height: 100vh;
+      height: 100svh;
+    }
+  
+    .hero-content {
+      padding-bottom: calc(var(--navbar-h-mobile) + 40px + env(safe-area-inset-bottom, 0px));
+    }
+  
+    /* Porte sur le conteneur au lieu du h1 */
+    .hero-identity {
+      text-align: start;
+      max-width: 100%;
+    }
+  
+    .hero-footer {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+  
+    /* --- About --- */
+    #s-about {
+      padding: 120px 0 80px 0;
+    }
+  
+    #s-about .about-photo img {
+      height: 150px;
+      width: 150px;
+    }
+  
+    /* Cible le conteneur, plus chaque <p> */
+    #s-about .about-text {
+      font-size: 0.95rem;
+      padding: 0 20px;
+    }
+  
+    /* --- Skills --- */
+    #s-skills .skills-list {
+      width: calc(100% - 48px);
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0;
+    }
+  
+    /* --- Footer --- */
+    /* Phrase en haut, contact en dessous, separes par un filet horizontal */
+    .footer-inner {
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-md);
+      text-align: center;
+    }
+  
+    .footer-cta {
+      flex: none;
+      max-width: 100%;
+    }
+  
+    .footer-contact {
+      width: 100%;
+      align-items: center;
+      gap: var(--space-xs);
+      padding-left: 0;
+      padding-top: var(--space-md);
+      border-left: 0;
+      border-top: var(--border-1);
+    }
+  
+    .footer-mail {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .footer-cv {
+      align-self: center;
+    }
+  
+    .footer-mail a {
+      word-break: break-all;
+    }
+  
+    .footer-copy {
+      padding: 6px 14px;
+    }
+  
+    .footer-links {
+      gap: var(--space-md);
+      padding-top: var(--space-xs);
+    }
+  }
+  
+  
+  /* 14. ACCESSIBILITE prefers-reduced-motion ---------------------------------------------------------------------------------- */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  
+    .rainbow { animation: none; }
+    .about-rings .ring { animation: none; }
+  
+    .pcard,
+    .pcard-panel,
+    .project-panel,              /* remplace .project-card-content */
+    .project-panel.is-active,
+    #s-skills .skills-card {
+      transition: none;
+    }
+  }
+  
+  
+  /* 15. PAGE 404 --------------------------------------------------------------------------------------------------------------- */
+  .notfound {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+    text-align: center;
+  }
+  
+  .notfound-code {
+    font-family: var(--font-title);
+    font-size: clamp(4rem, 18vw, 9rem);
+    font-weight: 400;
+    line-height: 1;
+  }
+  
+  .notfound-text {
+    max-width: 40ch;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+  }
+  
+  .notfound-back {
+    margin-top: var(--space-md);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }

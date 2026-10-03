@@ -44,7 +44,7 @@
        /* About */
        'about.heading':  "À propos",
        'about.imageAlt': "Portrait de Morgan Hassouna",
-       'about.p1': "J'ai mis du temps à trouver ce que je voulais faire. Des études en droit, puis en langues étrangères, plusieurs années de travail alimentaire en attendant — rien qui me projetait vraiment. La programmation, je l'ai croisée par hasard, en suivant des cours gratuits et des vidéos. Ça a pris, et je me suis inscrit à la formation.",
+       'about.p1': "J'ai mis du temps à trouver ce que je voulais faire. Des études en droit, puis en langues étrangères, plusieurs années de travail alimentaire en attendant - rien qui me projetait vraiment. La programmation, je l'ai croisée par hasard, en suivant des cours gratuits et des vidéos. Ça a pris, et je me suis inscrit à la formation.",
        'about.p2': "Titre professionnel Développeur Web et Web Mobile obtenu en juin 2026. Je cherche maintenant une alternance pour enchaîner sur le titre Concepteur Développeur d'Applications — et surtout pour travailler aux côtés de gens du métier, ce qui compte le plus à mes yeux à ce stade. Paris en priorité, Bordeaux et Toulouse également.",
        'about.p3': "Le front-end est ce qui me parle le plus pour l'instant, sans que ce soit une frontière : le back m'intéresse de plus en plus, et je ne m'interdis pas de découvrir autre chose que le web.",
    
