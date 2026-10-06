@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTFOLIO — Morgan Hassouna
+   PORTFOLIO : Morgan Hassouna
    DICTIONNAIRE i18n
    --------------------------------------------------------------------------
    Le HTML est la source du contenu francais. Ce fichier sert uniquement a
@@ -25,7 +25,7 @@
      /* ---------------------------------------------------------------- FR --- */
      fr: {
        /* Meta (appliquees par script, pas par data-i18n) */
-       'meta.title':       "Morgan Hassouna — Développeur web junior",
+       'meta.title':       "Morgan Hassouna · Développeur web junior",
        'meta.description': "Développeur web junior, titre DWWM obtenu en 2026. En recherche d'alternance à Paris, Bordeaux ou Toulouse. Projets en Next.js, React et TypeScript.",
    
        /* Navbar */
@@ -44,11 +44,11 @@
        /* About */
        'about.heading':  "À propos",
        'about.imageAlt': "Portrait de Morgan Hassouna",
-       'about.p1': "J'ai mis du temps à trouver ce que je voulais faire. Des études en droit, puis en langues étrangères, plusieurs années de travail alimentaire en attendant - rien qui me projetait vraiment. La programmation, je l'ai croisée par hasard, en suivant des cours gratuits et des vidéos. Ça a pris, et je me suis inscrit à la formation.",
-       'about.p2': "Titre professionnel Développeur Web et Web Mobile obtenu en juin 2026. Je cherche maintenant une alternance pour enchaîner sur le titre Concepteur Développeur d'Applications — et surtout pour travailler aux côtés de gens du métier, ce qui compte le plus à mes yeux à ce stade. Paris en priorité, Bordeaux et Toulouse également.",
+       'about.p1': "Des études en droit, puis en langues étrangères et plusieurs années de travail alimentaire, rien dans quoi vraiment me projeter. La programmation, je l'ai croisée par hasard, en suivant des cours gratuits et des vidéos. J'ai vite accroché, et je me suis inscrit à une formation.",
+       'about.p2': "Titre professionnel Développeur Web et Web Mobile obtenu en juin 2026. Je cherche maintenant une alternance pour enchaîner sur le titre Concepteur Développeur d'Applications et surtout pour travailler aux côtés de gens du métier, ce qui compte le plus à mes yeux à ce stade.",
        'about.p3': "Le front-end est ce qui me parle le plus pour l'instant, sans que ce soit une frontière : le back m'intéresse de plus en plus, et je ne m'interdis pas de découvrir autre chose que le web.",
    
-       /* Projets — interface */
+       /* Projets : interface */
        'projects.heading':    "Projets",
        'projects.source':     "Code source",
        'projects.view':       "Voir le projet",
@@ -57,25 +57,25 @@
        'projects.ariaOpen':   "Voir la description",
        'projects.ariaClose':  "Fermer la description",
    
-       /* Projets — AGL */
+       /* Projets : AGL */
        'agl.name':    "AGL",
        'agl.status':  "MVP terminé",
        'agl.imgAlt':  "Capture de l'application AGL",
        'agl.summary': "Application de gestion locative full-stack : biens, locataires, baux et génération automatique de contrats PDF. Projet de certification DWWM.",
        'agl.p1': "AGL répond à un besoin observé autour de moi : des propriétaires qui jonglent entre tableurs, mails et documents papier. L'application centralise biens, locataires et informations administratives, et génère automatiquement les baux en PDF, l'étape que les bailleurs jugeaient la plus pénible.",
        'agl.p2': "C'est cette génération qui m'a demandé le plus de travail : transformer les données (dates, montants, loyer total, lieu de signature), les fusionner dans un template, puis produire et stocker le PDF. La fonctionnalité est découpée en quatre modules orchestrés par une seule route.",
-       'agl.p3': "Projet mené seul de bout en bout, avec un workflow calqué sur un travail d'équipe : milestones, branches, Pull Requests. Le MVP a validé mon titre DWWM en juin 2026 ; la V1.5 portera sur le déploiement.",
+       'agl.p3': "Projet mené seul de bout en bout, avec un workflow calqué sur un travail d'équipe : milestones, branches, Pull Requests. Le MVP a validé mon titre DWWM en juin 2026.",
    
-       /* Projets — Labor */
+       /* Projets : Labor */
        'labor.name':    "Labor",
-       'labor.status':  "Projet de groupe · Stage — arrêté",
+       'labor.status':  "Projet de groupe · Stage arrêté",
        'labor.imgAlt':  "Capture de la plateforme Labor",
        'labor.summary': "Plateforme de mise en relation entre agriculteurs et travailleurs saisonniers. Projet de groupe réalisé en stage, où j'étais lead front.",
-       'labor.p1': "Labor met en relation des agriculteurs et des travailleurs saisonniers, en s'adressant à l'ensemble de l'espace francophone plutôt qu'au seul marché français. Le projet a été mené en équipe pendant un stage de deux mois, avec trois développeurs sur la partie front.",
-       'labor.p2': "Comme lead front, j'ai posé l'identité visuelle du projet : logo et charte graphique v1, utilisée comme référence par l'équipe. Côté code, j'ai défini l'architecture front, les conventions et le design system en tokens CSS, puis développé une partie des tickets : routing, mocks MSW, composants, layouts et landing page.",
-       'labor.p3': "Le projet s'est arrêté à la fin du stage, aux deux tiers du MVP maquetté. Fondations, design system et landing page sont en place ; les espaces agriculteur et saisonnier n'ont pas été terminés.",
+       'labor.p1': "Labor est un projet de groupe réalisé dans le cadre d'un stage de deux mois à but pédagogique. L'idée était une plateforme de mise en relation des agriculteurs et des travailleurs saisonniers, en s'adressant à l'ensemble de l'espace francophone.",
+       'labor.p2': "J'ai été chargé d'être le lead front dans ce projet, à la suite de quoi j'ai posé l'identité visuelle du projet : logo et charte graphique v1, utilisée comme référence par l'équipe. Côté code, j'ai défini l'architecture front, les conventions et le design system en tokens CSS, puis développé une partie des tickets : routing, mocks MSW, composants, layouts et landing page.",
+       'labor.p3': "Le projet s'est arrêté à la fin du stage, aux deux tiers du MVP maquetté.",
    
-       /* Projets — Portfolio */
+       /* Projets : Portfolio */
        'portfolio.name':    "Portfolio",
        'portfolio.status':  "En évolution",
        'portfolio.imgAlt':  "Capture de ce portfolio",
@@ -103,7 +103,7 @@
    
      /* ---------------------------------------------------------------- EN --- */
      en: {
-       'meta.title':       "Morgan Hassouna — Junior web developer",
+       'meta.title':       "Morgan Hassouna · Junior web developer",
        'meta.description': "Junior web developer, DWWM certification earned in 2026. Looking for an apprenticeship in Paris, Bordeaux or Toulouse. Projects in Next.js, React and TypeScript.",
    
        'nav.home':     "Home",
@@ -119,8 +119,8 @@
    
        'about.heading':  "About",
        'about.imageAlt': "Portrait of Morgan Hassouna",
-       'about.p1': "It took me a while to work out what I wanted to do. Law, then foreign languages, a few years of jobs taken to pay the bills — nothing that pointed anywhere. I came across programming almost by chance, through free online courses and videos. It stuck, and I enrolled on the course.",
-       'about.p2': "I earned my DWWM professional certification in web and mobile development in June 2026. I'm now looking for an apprenticeship to go on to the CDA qualification in application design and development — and above all to work alongside people who do this for a living, which matters most to me at this stage. Paris first, Bordeaux and Toulouse as well.",
+       'about.p1': "After studying law, then foreign languages, and a few years of jobs taken to pay the bills, nothing I could really see myself in. I came across programming by chance, through free online courses and videos. It clicked quickly, and I enrolled on a course.",
+       'about.p2': "I earned my DWWM professional certification in web and mobile development in June 2026. I'm now looking for an apprenticeship to go on to the CDA qualification in application design and development, and above all to work alongside people who do this for a living, which matters most to me at this stage.",
        'about.p3': "Front-end is what appeals to me most right now, though not as a boundary: back-end interests me more and more, and I'm not ruling out anything beyond the web.",
    
        'projects.heading':   "Projects",
@@ -137,15 +137,15 @@
        'agl.summary': "Full-stack property management app: properties, tenants, leases and automatic PDF contract generation. Built for my DWWM certification.",
        'agl.p1': "AGL answers a need I observed around me: landlords juggling spreadsheets, emails and paper documents. The app centralises properties, tenants and administrative details, and automatically generates leases as PDFs, the step the landlords I spoke to found most tedious.",
        'agl.p2': "That generation step took the most work: reshaping the data (dates, amounts, total rent, signing location), merging it into a template, then producing and storing the PDF. The feature is split into four modules orchestrated by a single route.",
-       'agl.p3': "Built entirely on my own, with a workflow modelled on team practice: milestones, branches, pull requests. The MVP earned my DWWM certification in June 2026; version 1.5 will cover deployment.",
+       'agl.p3': "Built entirely on my own, with a workflow modelled on team practice: milestones, branches, pull requests. The MVP earned my DWWM certification in June 2026.",
    
        'labor.name':    "Labor",
-       'labor.status':  "Group project · Internship — stopped",
+       'labor.status':  "Group project · Internship stopped",
        'labor.imgAlt':  "Screenshot of the Labor platform",
        'labor.summary': "Platform connecting farmers with seasonal agricultural workers. Group project built during an internship, where I was front-end lead.",
-       'labor.p1': "Labor connects farmers with seasonal agricultural workers, aimed at the French-speaking world as a whole rather than the French market alone. It was built by a team during a two-month internship, with three developers on the front end.",
-       'labor.p2': "As front-end lead, I set the project's visual identity: the logo and a first version of the style guide, used as the team's reference. On the code side, I defined the front-end architecture, the conventions and the CSS-token design system, then built a share of the tickets: routing, MSW mocks, components, layouts and the landing page.",
-       'labor.p3': "The project stopped when the internship ended, roughly two thirds into the wireframed MVP. Foundations, design system and landing page are in place; the farmer and worker areas were never finished.",
+       'labor.p1': "Labor is a group project built during a two-month educational internship. The idea was a platform connecting farmers with seasonal agricultural workers, aimed at the French-speaking world as a whole.",
+       'labor.p2': "I was put in charge as front-end lead, and from there I set the project's visual identity: the logo and a first version of the style guide, used as the team's reference. On the code side, I defined the front-end architecture, the conventions and the CSS-token design system, then built a share of the tickets: routing, MSW mocks, components, layouts and the landing page.",
+       'labor.p3': "The project stopped when the internship ended, roughly two thirds into the wireframed MVP.",
    
        'portfolio.name':    "Portfolio",
        'portfolio.status':  "Evolving",

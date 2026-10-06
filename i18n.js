@@ -1,6 +1,6 @@
 /* ==========================================================================
-   PORTFOLIO — Morgan Hassouna
-   i18n — bascule FR / EN
+   PORTFOLIO : Morgan Hassouna
+   i18n : bascule FR / EN
    --------------------------------------------------------------------------
    Ordre de priorite pour la langue au chargement :
      1. parametre d'URL      ?lang=en   (lien envoye a un recruteur)

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTFOLIO — Morgan Hassouna
+   PORTFOLIO : Morgan Hassouna
    --------------------------------------------------------------------------
    SOMMAIRE
      1. Hero Rainbow
@@ -7,7 +7,7 @@
      3. Projects mobile (carrousel .pcard)
      4. Scroll couleur par section
      5. Footer copie de l'email
-     6. Skills — vagues en arriere-plan
+     6. Skills : vagues en arriere-plan
    ========================================================================== */
 
    import { initI18n, t } from './i18n.js';

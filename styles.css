@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTFOLIO — Morgan Hassouna
+   PORTFOLIO : Morgan Hassouna
    --------------------------------------------------------------------------
    SOMMAIRE
      0.  Polices (fichiers locaux)
@@ -8,15 +8,15 @@
      3.  Navbar (+ toggle de langue)
      4.  Hero
      5.  About
-     6.  Projects — desktop (sticky)
-     7.  Projects — cartes mobile (.pcard)
+     6.  Projects : desktop (sticky)
+     7.  Projects : cartes mobile (.pcard)
      8.  Skills
      9.  Footer
-     10. Responsive — <= 1279px (projets : colonnes a parts egales)
-     11. Responsive — <= 1024px
-     12. Responsive — <= 900px (projets : bascule vers le carrousel)
-     13. Responsive — <= 600px
-     14. Accessibilite — prefers-reduced-motion
+     10. Responsive : <= 1279px (projets : colonnes a parts egales)
+     11. Responsive : <= 1024px
+     12. Responsive : <= 900px (projets : bascule vers le carrousel)
+     13. Responsive : <= 600px
+     14. Accessibilite : prefers-reduced-motion
      15. Page 404
    ========================================================================== */
 
@@ -570,7 +570,7 @@
   /* Un seul panneau visible. visibility: hidden retire aussi les
      panneaux inactifs de l'arbre d'accessibilite.
   
-     LIMITE DE TEXTE — desktop sans scroll
+     LIMITE DE TEXTE : desktop sans scroll
      780 caracteres maximum par projet : paragraphes de description cumules,
      espaces compris (hors titre, badges, stack et lien).
      Verifie en FR et en EN de 1024x650 a 1920x950. Au-dela de la limite,
@@ -839,7 +839,7 @@
     margin: var(--space-lg) 0 var(--space-md);
   }
   
-  /* Legende des deux niveaux — provisoire, traitement visuel en phase 6 */
+  /* Legende des deux niveaux : provisoire, traitement visuel en phase 6 */
   #s-skills .skills-legend {
     display: flex;
     flex-wrap: wrap;
@@ -887,7 +887,7 @@
     transition: transform 0.4s ease-in-out;
   }
   
-  /* Niveau "en cours d'apprentissage" — provisoire */
+  /* Niveau "en cours d'apprentissage" : provisoire */
   /* Niveau "en cours" : on attenue le contenu, pas la carte entiere,
      sinon la carte redevient transparente et laisse passer les vagues */
   #s-skills .skills-card.is-learning {
