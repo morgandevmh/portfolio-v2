@@ -681,7 +681,7 @@
     position: relative;
     flex: 0 0 80vw;
     height: auto;
-    min-height: 65vh;      /* la carte occupe environ deux tiers de l'ecran ;
+    min-height: 55vh;      /* la carte occupe environ deux tiers de l'ecran ;
                               l'image garde son rapport 2:1, l'espace en plus
                               va au corps de la carte */
     scroll-snap-align: center;
@@ -819,7 +819,7 @@
   #s-skills {
     position: relative;
     overflow: hidden;
-    min-height: 55vh;
+    min-height: 80vh;
     width: 100%;
     display: flex;
     align-items: center;
