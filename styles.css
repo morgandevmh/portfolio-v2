@@ -225,8 +225,15 @@
     transform: scaleX(1);
   }
   
-  /* Toggle de langue : neutralise le style natif des <button> */
+  /* Toggle de langue : neutralise le style natif des <button>.
+     Le role="group" est porte par .lang-group et non par le <li>, sinon
+     celui-ci perd son role de listitem et sort de la liste. */
   .navbar .nav-links .lang-switch {
+    display: flex;
+    align-items: center;
+  }
+  
+  .lang-group {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -674,6 +681,9 @@
     position: relative;
     flex: 0 0 80vw;
     height: auto;
+    min-height: 65vh;      /* la carte occupe environ deux tiers de l'ecran ;
+                              l'image garde son rapport 2:1, l'espace en plus
+                              va au corps de la carte */
     scroll-snap-align: center;
     background: var(--color-bg-elevated);
     border: var(--border-1);
@@ -809,7 +819,7 @@
   #s-skills {
     position: relative;
     overflow: hidden;
-    min-height: 80vh;
+    min-height: 55vh;
     width: 100%;
     display: flex;
     align-items: center;
@@ -902,9 +912,13 @@
   #s-skills .card-L:hover { transform: rotate(18deg); }
   #s-skills .card-R:hover { transform: rotate(-18deg); }
   
+  /* Taille figee des deux cotes : sans largeur, la carte s'elargit au
+     chargement de l'icone et provoque un decalage de mise en page (CLS). */
   #s-skills .skills-card img {
+    width: 25px;
     height: 25px;
-    object-fit: cover;
+    object-fit: contain;
+    flex: none;
   }
   
   
